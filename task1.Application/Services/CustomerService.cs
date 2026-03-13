@@ -107,23 +107,54 @@ namespace task1.Application.Services
                 Id = c.Id,
                 Name = c.Name,
                 LastName = c.LastName,
-                City = c.City
+                City = c.City,
+                Email = c.Email,
+                Cars = c.Cars.Select(car => new CarModel
+                {
+                    Id = car.Id,
+                    Model = car.Model,
+                    maxSpeed = car.maxSpeed,
+                    CustomerId = car.CustomerId
+                }).ToList()
             }).ToList();
         }
 
-        public async Task<List<CustomerModel>> PaginateCustomersAsync(int page)
+        public async Task<List<CustomerModel>> PaginateCustomersAsync(int page, string? sortBy)
         {
-            var customers = await _customerRepository.PaginateCustomers(page);
+            var customers = await _customerRepository.PaginateCustomers(page, sortBy);
             return customers.Select(c => new CustomerModel
             {
                 Id = c.Id,
                 Name = c.Name,
                 LastName = c.LastName,
                 City = c.City,
-                Email = c.Email
+                Email = c.Email,
+                Cars = c.Cars.Select(car => new CarModel
+                {
+                    Id = car.Id,
+                    Model = car.Model,
+                    maxSpeed = car.maxSpeed,
+                    CustomerId = car.CustomerId
+                }).ToList()
             }).ToList();
         }
 
         public async Task<int> GetCountAsync() => await _customerRepository.GetCountAsync();
+
+        public async Task<(string Name, int CarCount, List<CarModel> Cars)?> GetCustomerWithMostCarsAsync()
+        {
+            var result = await _customerRepository.GetCustomerWithMostCarsAsync();
+            if (result == null) return null;
+            var name = $"{result.Value.Customer.Name} {result.Value.Customer.LastName}".Trim();
+            if (string.IsNullOrEmpty(name)) name = result.Value.Customer.Email;
+            var cars = result.Value.Customer.Cars.Select(c => new CarModel
+            {
+                Id = c.Id,
+                Model = c.Model,
+                maxSpeed = c.maxSpeed,
+                CustomerId = c.CustomerId
+            }).ToList();
+            return (name, result.Value.CarCount, cars);
+        }
     }
 }

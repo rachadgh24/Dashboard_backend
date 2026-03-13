@@ -14,9 +14,12 @@ namespace task1.DataLayer.Repositories
             _context = context;
         }
 
-        public async Task<List<User>> GetAllAsync()
+        public async Task<List<User>> GetAllAsync(string? role = null)
         {
-            return await _context.Users.AsNoTracking().OrderBy(u => u.Id).ToListAsync();
+            var query = _context.Users.AsNoTracking();
+            if (!string.IsNullOrWhiteSpace(role))
+                query = query.Where(u => u.Role == role);
+            return await query.OrderBy(u => u.Id).ToListAsync();
         }
 
         public async Task<List<User>> PaginateUsersAsync(int page)

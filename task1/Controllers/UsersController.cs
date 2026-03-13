@@ -23,9 +23,9 @@ namespace task1.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<UserModel>>> GetUsers()
+        public async Task<ActionResult<List<UserModel>>> GetUsers([FromQuery] string? role = null)
         {
-            return await _userService.GetAllAsync();
+            return await _userService.GetAllAsync(role);
         }
 
         [HttpGet("paginate")]

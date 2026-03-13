@@ -7,5 +7,6 @@ namespace task1.Application.Models
         public required string LastName { get; set; }
         public required string City { get; set; }
         public string? Email { get; set; }
+        public List<CarModel> Cars { get; set; } = new();
     }
 }

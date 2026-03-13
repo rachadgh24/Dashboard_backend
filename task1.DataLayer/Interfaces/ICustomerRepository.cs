@@ -11,8 +11,9 @@ namespace task1.DataLayer.Interfaces
         Task<bool> DeleteCustomer(int id);
         Task<Customer> AddCustomerAsync(Customer customer);
         Task<List<Customer>> Search(string? query);
-        Task<List<Customer>> PaginateCustomers(int page);
+        Task<List<Customer>> PaginateCustomers(int page, string? sortBy);
         Task<int> GetCountAsync();
+        Task<(Customer Customer, int CarCount)?> GetCustomerWithMostCarsAsync();
         Task SaveChangesAsync();
     }
 }

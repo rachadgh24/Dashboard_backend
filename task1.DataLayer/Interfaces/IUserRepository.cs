@@ -4,7 +4,7 @@ namespace task1.DataLayer.Interfaces
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetAllAsync();
+        Task<List<User>> GetAllAsync(string? role = null);
         Task<List<User>> PaginateUsersAsync(int page);
         Task<int> GetCountAsync();
         Task<User?> GetByEmailAsync(string email);

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W+Gp7qIZTmc=",
+  "dgSpecHash": "pD94OLsr/Sc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.Application\\task1.Application.csproj",
+  "projectFilePath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\task1.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LENOVO.CC\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\LENOVO.CC\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.24\\microsoft.entityframeworkcore.8.0.24.nupkg.sha512",

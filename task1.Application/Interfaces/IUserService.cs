@@ -4,7 +4,7 @@ namespace task1.Application.Interfaces
 {
     public interface IUserService
     {
-        Task<List<UserModel>> GetAllAsync();
+        Task<List<UserModel>> GetAllAsync(string? role = null);
         Task<List<UserModel>> PaginateUsersAsync(int page);
         Task<int> GetCountAsync();
         Task<UserModel?> GetByIdAsync(int id);

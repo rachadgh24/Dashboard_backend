@@ -83,9 +83,9 @@ namespace task1.Controllers
 
         [Authorize(Roles = "Admin,General Manager")]
         [HttpGet("paginate")]
-        public async Task<IActionResult> PaginateCustomers([FromQuery] int page = 1)
+        public async Task<IActionResult> PaginateCustomers([FromQuery] int page = 1, [FromQuery] string? sortBy = null)
         {
-            var customers = await _customerService.PaginateCustomersAsync(page);
+            var customers = await _customerService.PaginateCustomersAsync(page, sortBy);
             return Ok(customers);
         }
 

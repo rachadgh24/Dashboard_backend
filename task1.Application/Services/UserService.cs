@@ -38,9 +38,10 @@ namespace task1.Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<List<UserModel>> GetAllAsync()
+        public async Task<List<UserModel>> GetAllAsync(string? role = null)
         {
-            var users = await _userRepository.GetAllAsync();
+            var normalizedRole = string.IsNullOrWhiteSpace(role) ? null : UserRoles.Normalize(role);
+            var users = await _userRepository.GetAllAsync(normalizedRole);
             return users.Select(ToModel).ToList();
         }
 

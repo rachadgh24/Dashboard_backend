@@ -10,7 +10,8 @@ namespace task1.Application.Interfaces
         Task<CustomerModel?> UpdateCustomerAsync(int id, CustomerModel customerModel);
         Task<bool> DeleteCustomerAsync(int id);
         Task<List<CustomerModel>> Search(string? query);
-        Task<List<CustomerModel>> PaginateCustomersAsync(int page);
+        Task<List<CustomerModel>> PaginateCustomersAsync(int page, string? sortBy);
         Task<int> GetCountAsync();
+        Task<(string Name, int CarCount, List<CarModel> Cars)?> GetCustomerWithMostCarsAsync();
     }
 }
