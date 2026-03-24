@@ -17,6 +17,16 @@
   },
   {
     "ContainingType": "task1.Controllers.AuthController",
+    "Method": "GetMyPermissions",
+    "RelativePath": "api/Auth/me/permissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "task1.Controllers.AuthController",
     "Method": "Register",
     "RelativePath": "api/Auth/register",
     "HttpMethod": "POST",
@@ -39,17 +49,7 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.List\u00601[[task1.Application.Models.CarModel, task1.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "task1.Controllers.CarsController",
@@ -147,6 +147,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "task1.Controllers.ClaimsController",
+    "Method": "GetAll",
+    "RelativePath": "Claims",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "task1.Controllers.CustomersController",
     "Method": "GetCustomers",
     "RelativePath": "Customers",
@@ -154,17 +164,7 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.List\u00601[[task1.Application.Models.CustomerModel, task1.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "task1.Controllers.CustomersController",
@@ -257,6 +257,11 @@
         "Name": "page",
         "Type": "System.Int32",
         "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -278,6 +283,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "task1.Controllers.DashboardController",
+    "Method": "GetStats",
+    "RelativePath": "Dashboard/stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "task1.Controllers.NotificationsController",
     "Method": "GetNotifications",
     "RelativePath": "Notifications",
@@ -285,17 +300,7 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.List\u00601[[task1.Application.Models.NotificationModel, task1.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "task1.Controllers.NotificationsController",
@@ -324,24 +329,67 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "task1.Controllers.RolesController",
+    "Method": "GetAll",
+    "RelativePath": "Roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "task1.Controllers.RolesController",
+    "Method": "Create",
+    "RelativePath": "Roles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "task1.Models.CreateRoleRequest",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "task1.Controllers.RolesController",
+    "Method": "SetClaims",
+    "RelativePath": "Roles/{id}/claims",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "task1.Models.SetRoleClaimsRequest",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "task1.Controllers.UsersController",
     "Method": "GetUsers",
     "RelativePath": "Users",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[task1.Application.Models.UserModel, task1.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "role",
+        "Type": "System.String",
+        "IsRequired": false
       }
-    ]
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "task1.Controllers.UsersController",

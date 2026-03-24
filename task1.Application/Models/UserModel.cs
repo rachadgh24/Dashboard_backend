@@ -4,7 +4,7 @@ namespace task1.Application.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
     }
 
@@ -14,7 +14,7 @@ namespace task1.Application.Models
     public class CreateUserModel
     {
         public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
     }

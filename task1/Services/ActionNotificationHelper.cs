@@ -8,7 +8,7 @@ namespace task1
     public static class ActionNotificationHelper
     {
         /// <summary>
-        /// Gets the current user's display name from claims (JWT uses "name" and "email").
+        /// Gets the current user's display name from claims (JWT uses "name" and "phoneNumber").
         /// </summary>
         public static string GetDisplayName(ClaimsPrincipal user)
         {
@@ -16,9 +16,10 @@ namespace task1
                 ?? user?.FindFirst(ClaimTypes.Name)?.Value
                 ?? user?.FindFirst("unique_name")?.Value;
             if (!string.IsNullOrWhiteSpace(name)) return name.Trim();
-            var email = user?.FindFirst("email")?.Value
+            var phoneNumber = user?.FindFirst("phoneNumber")?.Value
+                ?? user?.FindFirst("email")?.Value
                 ?? user?.FindFirst(ClaimTypes.Email)?.Value;
-            if (!string.IsNullOrWhiteSpace(email)) return email.Trim();
+            if (!string.IsNullOrWhiteSpace(phoneNumber)) return phoneNumber.Trim();
             return "Someone";
         }
 

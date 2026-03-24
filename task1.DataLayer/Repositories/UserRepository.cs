@@ -16,9 +16,9 @@ namespace task1.DataLayer.Repositories
 
         public async Task<List<User>> GetAllAsync(string? role = null)
         {
-            var query = _context.Users.AsNoTracking();
+            IQueryable<User> query = _context.Users.AsNoTracking().Include(u => u.Role);
             if (!string.IsNullOrWhiteSpace(role))
-                query = query.Where(u => u.Role == role);
+                query = query.Where(u => u.Role.Name == role);
             return await query.OrderBy(u => u.Id).ToListAsync();
         }
 
@@ -26,6 +26,7 @@ namespace task1.DataLayer.Repositories
         {
             return await _context.Users
                 .AsNoTracking()
+                .Include(u => u.Role)
                 .OrderBy(u => u.Id)
                 .Skip((page - 1) * 4)
                 .Take(4)
@@ -37,14 +38,18 @@ namespace task1.DataLayer.Repositories
             return await _context.Users.CountAsync();
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<User?> GetByPhoneNumberAsync(string phoneNumber)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
         }
 
         public async Task<User?> GetByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public Task<User> AddUserAsync(User user)
@@ -59,8 +64,8 @@ namespace task1.DataLayer.Repositories
             if (entity == null) return null;
 
             entity.Name = user.Name;
-            entity.Email = user.Email;
-            entity.Role = user.Role;
+            entity.PhoneNumber = user.PhoneNumber;
+            entity.RoleId = user.RoleId;
             if (!string.IsNullOrEmpty(user.PasswordHash))
                 entity.PasswordHash = user.PasswordHash;
             return entity;

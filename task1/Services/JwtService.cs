@@ -12,13 +12,13 @@ public class JwtService
         _config = config;
     }
 
-    public string GenerateToken(string userId, string email, string name, string role)
+    public string GenerateToken(string userId, string phoneNumber, string name, string role)
     {
         var nameValue = name ?? string.Empty;
         var claims = new List<Claim>
         {
             new Claim("sub", userId),
-            new Claim("email", email),
+            new Claim("phoneNumber", phoneNumber),
             new Claim("name", nameValue),
             new Claim("role", role)
         };

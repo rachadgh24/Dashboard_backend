@@ -7,7 +7,7 @@ namespace task1.DataLayer.Interfaces
         Task<List<User>> GetAllAsync(string? role = null);
         Task<List<User>> PaginateUsersAsync(int page);
         Task<int> GetCountAsync();
-        Task<User?> GetByEmailAsync(string email);
+        Task<User?> GetByPhoneNumberAsync(string phoneNumber);
         Task<User?> GetByIdAsync(int id);
         Task<User> AddUserAsync(User user);
         Task<User?> UpdateUserAsync(User user);

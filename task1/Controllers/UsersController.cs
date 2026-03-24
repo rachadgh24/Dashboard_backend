@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using task1.Application.Interfaces;
 using task1.Application.Models;
 using task1.Application.Services;
+using task1.Models;
 using task1;
 
 namespace task1.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
@@ -22,42 +23,46 @@ namespace task1.Controllers
             _notificationService = notificationService;
         }
 
+        [Authorize(Policy = "ViewUsers")]
         [HttpGet]
-        public async Task<ActionResult<List<UserModel>>> GetUsers([FromQuery] string? role = null)
+        public async Task<IActionResult> GetUsers([FromQuery] string? role = null)
         {
-            return await _userService.GetAllAsync(role);
+            var users = await _userService.GetAllAsync(role);
+            return Ok(new ApiResponse<List<UserModel>> { Data = users });
         }
 
+        [Authorize(Policy = "ViewUsers")]
         [HttpGet("paginate")]
         public async Task<IActionResult> PaginateUsers([FromQuery] int page = 1)
         {
             var users = await _userService.PaginateUsersAsync(page);
-            return Ok(users);
+            return Ok(new ApiResponse<List<UserModel>> { Data = users });
         }
 
+        [Authorize(Policy = "ViewUsers")]
         [HttpGet("count")]
         public async Task<IActionResult> GetUsersCount()
         {
             var count = await _userService.GetCountAsync();
-            return Ok(count);
+            return Ok(new ApiResponse<int> { Data = count });
         }
 
+        [Authorize(Policy = "ViewUser")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _userService.GetByIdAsync(id);
-            if (user == null) return NotFound();
-            return Ok(user);
+            if (user == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
+            return Ok(new ApiResponse<UserModel> { Data = user });
         }
 
+        [Authorize(Policy = "CreateUser")]
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] CreateUserModel? model)
         {
-            if (model == null) return BadRequest();
-            if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
-                return BadRequest("Email and password are required.");
-            if (!UserRoles.IsValid(model.Role))
-                return BadRequest($"Role must be one of: {string.Join(", ", UserRoles.All)}");
+            if (model == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
+            if (string.IsNullOrWhiteSpace(model.PhoneNumber) || string.IsNullOrWhiteSpace(model.Password))
+                return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Phone number and password are required." } });
 
             try
             {
@@ -65,60 +70,64 @@ namespace task1.Controllers
                 var role = User.FindFirst("role")?.Value ?? "Admin";
                 var name = ActionNotificationHelper.GetDisplayName(User);
                 var message = ActionNotificationHelper.Format(role, name, "added a user");
-                await _notificationService.RecordAsync(message);
-                return Ok(new { user, message });
+                return Ok(new ApiResponse<object> { Data = new { user, message } });
             }
-            catch (InvalidOperationException ex) when (ex.Message.Contains("email"))
+            catch (InvalidOperationException ex) when (ex.Message.Contains("phone") || ex.Message.Contains("Phone"))
             {
-                return Conflict(ex.Message);
+                return Conflict(new ApiResponse<object> { Error = new ApiError { Code = "CONFLICT", Message = ex.Message } });
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = ex.Message } });
             }
         }
 
+        [Authorize(Policy = "DeleteUser")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            if (!await _userService.DeleteUserAsync(id)) return NotFound();
-            return Ok();
+            if (!await _userService.DeleteUserAsync(id)) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
+            return Ok(new ApiResponse<object> { Data = null });
         }
 
+        [Authorize(Policy = "EditUser")]
         [HttpPut("{id}")]
         public async Task<IActionResult> EditUser(int id, [FromBody] UserModel? model)
         {
-            if (model == null) return BadRequest();
+            if (model == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
             try
             {
                 var updated = await _userService.EditUserAsync(id, model);
-                if (updated == null) return NotFound();
-                return Ok(updated);
+                if (updated == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
+                return Ok(new ApiResponse<UserModel> { Data = updated });
             }
-            catch (InvalidOperationException ex) when (ex.Message.Contains("email"))
+            catch (InvalidOperationException ex) when (ex.Message.Contains("phone") || ex.Message.Contains("Phone"))
             {
-                return Conflict(ex.Message);
+                return Conflict(new ApiResponse<object> { Error = new ApiError { Code = "CONFLICT", Message = ex.Message } });
             }
         }
 
+        [Authorize(Policy = "ChangeUserRole")]
         [HttpPatch("{id}/role")]
         public async Task<IActionResult> ChangeRole(int id, [FromBody] ChangeRoleRequest? request)
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Role))
-                return BadRequest("Role is required.");
+                return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Role is required." } });
             var normalizedRole = UserRoles.Normalize(request.Role);
-            if (!UserRoles.All.Contains(normalizedRole, StringComparer.Ordinal))
-                return BadRequest($"Role must be one of: {string.Join(", ", UserRoles.All)}");
 
             try
             {
                 var updated = await _userService.ChangeRoleAsync(id, normalizedRole);
-                if (updated == null) return NotFound();
-                return Ok(updated);
+                if (updated == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
+                return Ok(new ApiResponse<UserModel> { Data = updated });
             }
             catch (ArgumentException)
             {
-                return BadRequest($"Role must be one of: {string.Join(", ", UserRoles.All)}");
+                return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Invalid role." } });
+            }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("not found", StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = ex.Message } });
             }
         }
     }

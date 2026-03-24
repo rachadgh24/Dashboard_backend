@@ -10,9 +10,18 @@ namespace task1.DataLayer.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "PasswordHash",
-                table: "Customers");
+            // Customers never had PasswordHash in this schema - only drop if it exists (PostgreSQL)
+            migrationBuilder.Sql(@"
+                DO $$
+                BEGIN
+                    IF EXISTS (
+                        SELECT 1 FROM information_schema.columns
+                        WHERE table_schema = 'public' AND table_name = 'Customers' AND column_name = 'PasswordHash'
+                    ) THEN
+                        ALTER TABLE ""Customers"" DROP COLUMN ""PasswordHash"";
+                    END IF;
+                END $$;
+            ");
         }
 
         /// <inheritdoc />

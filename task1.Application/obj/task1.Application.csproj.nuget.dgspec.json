@@ -58,9 +58,25 @@
               "target": "Package",
               "version": "[4.1.0, )"
             },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.2, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.24, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[8.4.2, )"
             }
           },
           "imports": [

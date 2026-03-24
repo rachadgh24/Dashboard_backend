@@ -1,12 +1,16 @@
+using System.Text.Json;
 using task1.Application.DependencyInjection;
 using task1.DataLayer.DependencyInjection;
 using task1.DataLayer.Entities;
 using task1.DataLayer.DbContexts;
+using task1.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using task1.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,13 +70,13 @@ builder.Services.AddAuthentication(options =>
             {
                 var oldRole = identity.FindFirst(ClaimTypes.Role);
                 if (oldRole != null)
-                    identity.AddClaim(new Claim("role", oldRole.Value));
+                    identity.AddClaim(new System.Security.Claims.Claim("role", oldRole.Value));
             }
             if (identity.FindFirst("name") == null)
             {
                 var oldName = identity.FindFirst(ClaimTypes.Name) ?? identity.FindFirst("unique_name");
                 if (oldName != null)
-                    identity.AddClaim(new Claim("name", oldName.Value));
+                    identity.AddClaim(new System.Security.Claims.Claim("name", oldName.Value));
             }
 
             return Task.CompletedTask;
@@ -82,18 +86,39 @@ builder.Services.AddAuthentication(options =>
             context.HandleResponse();
             context.Response.StatusCode = 401;
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync("{\"message\":\"Unauthorized: please sign in again.\"}");
+            var body = new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Unauthorized: please sign in again." } };
+            await context.Response.WriteAsync(JsonSerializer.Serialize(body));
         },
         OnForbidden = async context =>
         {
             context.Response.StatusCode = 403;
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync("{\"message\":\"Forbidden: you do not have permission to access this resource.\"}");
+            var body = new ApiResponse<object> { Error = new ApiError { Code = "FORBIDDEN", Message = "Forbidden: you do not have permission to access this resource." } };
+            await context.Response.WriteAsync(JsonSerializer.Serialize(body));
         }
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+builder.Services.AddAuthorization(options =>
+{
+    var permissions = new[]
+    {
+        "ViewUsers", "SearchUsers", "ViewUser", "CreateUser", "EditUser", "DeleteUser", "ChangeUserRole",
+        "ViewCustomers", "SearchCustomers", "ViewCustomer", "CreateCustomer", "EditCustomer", "DeleteCustomer",
+        "ViewCars", "ViewCar", "CreateCar", "EditCar", "DeleteCar",
+        "ViewPosts", "ViewPost", "CreatePost", "EditPost", "DeletePost",
+        "ViewDashboard",
+        "ViewNotifications", "DeleteNotifications"
+    };
+
+    foreach (var permission in permissions)
+    {
+        options.AddPolicy(permission, policy =>
+            policy.Requirements.Add(new PermissionRequirement(permission)));
+    }
+});
 builder.Services.AddScoped<JwtService>();
 var app = builder.Build();
 

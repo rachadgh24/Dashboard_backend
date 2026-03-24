@@ -69,7 +69,8 @@ namespace task1.DataLayer.Repositories
             var customers = await _context.Customers
                 .Where(c => (c.Name != null && c.Name.ToLower().Contains(lowerQuery))
                          || (c.LastName != null && c.LastName.ToLower().Contains(lowerQuery))
-                         || (c.City != null && c.City.ToLower().Contains(lowerQuery)))
+                         || (c.City != null && c.City.ToLower().Contains(lowerQuery))
+                         || (c.Email != null && c.Email.ToLower().Contains(lowerQuery)))
                 .AsNoTracking()
                 .ToListAsync();
 

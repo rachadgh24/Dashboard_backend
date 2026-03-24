@@ -34,6 +34,7 @@ namespace task1.DataLayer.DependencyInjection
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICarsRepository, CarsRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
         }
     }

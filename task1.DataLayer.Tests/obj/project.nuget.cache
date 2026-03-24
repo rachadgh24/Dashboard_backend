@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q2fdD4FwCaE=",
+  "dgSpecHash": "bnxLL1QlUHw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer.Tests\\task1.DataLayer.Tests.csproj",
+  "projectFilePath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer.Tests\\task1.DataLayer.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LENOVO.CC\\.nuget\\packages\\microsoft.codecoverage\\17.11.1\\microsoft.codecoverage.17.11.1.nupkg.sha512",
     "C:\\Users\\LENOVO.CC\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.24\\microsoft.entityframeworkcore.8.0.24.nupkg.sha512",

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using task1.Application.Interfaces;
+using task1.Models;
 
 namespace task1.Controllers
 {
@@ -20,6 +21,7 @@ namespace task1.Controllers
             _carService = carService;
         }
 
+        [Authorize(Policy = "ViewDashboard")]
         [HttpGet("stats")]
         public async Task<IActionResult> GetStats()
         {
@@ -29,12 +31,15 @@ namespace task1.Controllers
             var totalCustomers = await _customerService.GetCountAsync();
             var topCustomer = await _customerService.GetCustomerWithMostCarsAsync();
 
-            return Ok(new
+            return Ok(new ApiResponse<object>
             {
-                totalUsers,
-                totalCars,
-                totalCustomers,
-                topCustomer = topCustomer == null ? null : new { topCustomer.Value.Name, topCustomer.Value.CarCount, cars = topCustomer.Value.Cars }
+                Data = new
+                {
+                    totalUsers,
+                    totalCars,
+                    totalCustomers,
+                    topCustomer = topCustomer == null ? null : new { topCustomer.Value.Name, topCustomer.Value.CarCount, cars = topCustomer.Value.Cars }
+                }
             });
         }
     }

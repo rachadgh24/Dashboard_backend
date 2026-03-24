@@ -1690,11 +1690,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer.Tests\\task1.DataLayer.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer.Tests\\task1.DataLayer.Tests.csproj",
       "projectName": "task1.DataLayer.Tests",
-      "projectPath": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer.Tests\\task1.DataLayer.Tests.csproj",
+      "projectPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer.Tests\\task1.DataLayer.Tests.csproj",
       "packagesPath": "C:\\Users\\LENOVO.CC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer.Tests\\obj\\",
+      "outputPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1715,8 +1715,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\task1.DataLayer.csproj": {
-              "projectPath": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\task1.DataLayer.csproj"
+            "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj": {
+              "projectPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj"
             }
           }
         }
