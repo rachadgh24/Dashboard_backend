@@ -165,8 +165,8 @@ public class CarsRepositoryTests
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var page1 = await repo.PaginateCars(1);
-            var page2 = await repo.PaginateCars(2);
+            var page1 = await repo.PaginateCars(1, 4);
+            var page2 = await repo.PaginateCars(2, 4);
 
             Assert.Equal(4, page1.Count);
             Assert.Equal(2, page2.Count);

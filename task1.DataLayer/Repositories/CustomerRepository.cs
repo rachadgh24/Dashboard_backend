@@ -90,10 +90,9 @@ namespace task1.DataLayer.Repositories
 
             return customers;
         }
-        public async Task<List<Customer>> PaginateCustomers(int page, string? sortBy)
+        public async Task<List<Customer>> PaginateCustomers(int page, int pageSize, string? sortBy)
         {
             var normalized = sortBy?.Trim();
-            const int pageSize = 4;
             List<Customer> customers;
 
             if (string.IsNullOrEmpty(normalized))

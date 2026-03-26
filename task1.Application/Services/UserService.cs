@@ -1,6 +1,6 @@
+using task1.Application;
 using task1.Application.Interfaces;
 using task1.Application.Models;
-using task1.Application.Resilience;
 using task1.DataLayer.Entities;
 using task1.DataLayer.Interfaces;
 
@@ -34,36 +34,38 @@ namespace task1.Application.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
-        private readonly IDatabaseResiliencePipeline _resilience;
 
-        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IDatabaseResiliencePipeline resilience)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
-            _resilience = resilience;
         }
 
         public async Task<List<UserModel>> GetAllAsync(string? role = null)
         {
             var normalizedRole = string.IsNullOrWhiteSpace(role) ? null : UserRoles.Normalize(role);
-            var users = await _resilience.ExecuteAsync(() => _userRepository.GetAllAsync(normalizedRole));
+            var users = await _userRepository.GetAllAsync(normalizedRole);
             return users.Select(ToModel).ToList();
         }
 
-        public async Task<List<UserModel>> PaginateUsersAsync(int page)
+        public async Task<List<UserModel>> PaginateUsersAsync(int page, int pageSize, string? role = null)
         {
-            var users = await _resilience.ExecuteAsync(() => _userRepository.PaginateUsersAsync(page));
+            var normalizedRole = string.IsNullOrWhiteSpace(role) ? null : UserRoles.Normalize(role);
+            var p = PaginationQuery.NormalizePage(page);
+            var ps = PaginationQuery.NormalizePageSize(pageSize);
+            var users = await _userRepository.PaginateUsersAsync(p, ps, normalizedRole);
             return users.Select(ToModel).ToList();
         }
 
-        public async Task<int> GetCountAsync()
+        public async Task<int> GetCountAsync(string? role = null)
         {
-            return await _resilience.ExecuteAsync(() => _userRepository.GetCountAsync());
+            var normalizedRole = string.IsNullOrWhiteSpace(role) ? null : UserRoles.Normalize(role);
+            return await _userRepository.GetCountAsync(normalizedRole);
         }
 
         public async Task<UserModel?> GetByIdAsync(int id)
         {
-            var user = await _resilience.ExecuteAsync(() => _userRepository.GetByIdAsync(id));
+            var user = await _userRepository.GetByIdAsync(id);
             if (user == null) return null;
             return ToModel(user);
         }
@@ -71,12 +73,12 @@ namespace task1.Application.Services
         public async Task<UserModel> AddUserAsync(CreateUserModel model)
         {
             var roleName = UserRoles.Normalize(model.Role);
-            var role = await _resilience.ExecuteAsync(() => _roleRepository.GetByNameAsync(roleName));
+            var role = await _roleRepository.GetByNameAsync(roleName);
             if (role == null)
                 throw new InvalidOperationException($"Role '{roleName}' not found in database.");
 
             var phoneNumber = model.PhoneNumber?.Trim() ?? string.Empty;
-            if (await _resilience.ExecuteAsync(() => _userRepository.GetByPhoneNumberAsync(phoneNumber)) != null)
+            if (await _userRepository.GetByPhoneNumberAsync(phoneNumber) != null)
                 throw new InvalidOperationException("A user with this phone number already exists.");
 
             var user = new User
@@ -87,51 +89,51 @@ namespace task1.Application.Services
                 RoleId = role.Id
             };
 
-            var added = await _resilience.ExecuteAsync(() => _userRepository.AddUserAsync(user));
-            await _resilience.ExecuteAsync(() => _userRepository.SaveChangesAsync());
+            var added = await _userRepository.AddUserAsync(user);
+            await _userRepository.SaveChangesAsync();
             return ToModel(added);
         }
 
         public async Task<bool> DeleteUserAsync(int id)
         {
-            var deleted = await _resilience.ExecuteAsync(() => _userRepository.DeleteUserAsync(id));
+            var deleted = await _userRepository.DeleteUserAsync(id);
             if (!deleted) return false;
-            await _resilience.ExecuteAsync(() => _userRepository.SaveChangesAsync());
+            await _userRepository.SaveChangesAsync();
             return true;
         }
 
         public async Task<UserModel?> EditUserAsync(int id, UserModel model)
         {
-            var entity = await _resilience.ExecuteAsync(() => _userRepository.GetByIdAsync(id));
+            var entity = await _userRepository.GetByIdAsync(id);
             if (entity == null) return null;
 
             var newPhoneNumber = model.PhoneNumber?.Trim() ?? string.Empty;
-            var existingByPhone = await _resilience.ExecuteAsync(() => _userRepository.GetByPhoneNumberAsync(newPhoneNumber));
+            var existingByPhone = await _userRepository.GetByPhoneNumberAsync(newPhoneNumber);
             if (existingByPhone != null && existingByPhone.Id != id)
                 throw new InvalidOperationException("A user with this phone number already exists.");
 
             entity.Name = model.Name?.Trim() ?? string.Empty;
             entity.PhoneNumber = newPhoneNumber;
-            var updated = await _resilience.ExecuteAsync(() => _userRepository.UpdateUserAsync(entity));
+            var updated = await _userRepository.UpdateUserAsync(entity);
             if (updated == null) return null;
-            await _resilience.ExecuteAsync(() => _userRepository.SaveChangesAsync());
+            await _userRepository.SaveChangesAsync();
             return ToModel(updated);
         }
 
         public async Task<UserModel?> ChangeRoleAsync(int id, string role)
         {
             var roleName = UserRoles.Normalize(role);
-            var roleEntity = await _resilience.ExecuteAsync(() => _roleRepository.GetByNameAsync(roleName));
+            var roleEntity = await _roleRepository.GetByNameAsync(roleName);
             if (roleEntity == null)
                 throw new InvalidOperationException($"Role '{roleName}' not found in database.");
 
-            var entity = await _resilience.ExecuteAsync(() => _userRepository.GetByIdAsync(id));
+            var entity = await _userRepository.GetByIdAsync(id);
             if (entity == null) return null;
 
             entity.RoleId = roleEntity.Id;
-            var updated = await _resilience.ExecuteAsync(() => _userRepository.UpdateUserAsync(entity));
+            var updated = await _userRepository.UpdateUserAsync(entity);
             if (updated == null) return null;
-            await _resilience.ExecuteAsync(() => _userRepository.SaveChangesAsync());
+            await _userRepository.SaveChangesAsync();
             return ToModel(updated);
         }
 

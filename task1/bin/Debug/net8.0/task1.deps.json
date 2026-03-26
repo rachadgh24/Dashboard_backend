@@ -10,6 +10,7 @@
         "dependencies": {
           "BCrypt.Net-Next": "4.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.24",
+          "Microsoft.AspNetCore.SignalR.Common": "8.0.25",
           "Microsoft.EntityFrameworkCore.Design": "8.0.24",
           "Swashbuckle.AspNetCore": "6.6.2",
           "System.IdentityModel.Tokens.Jwt": "8.16.0",
@@ -79,6 +80,30 @@
           "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
             "assemblyVersion": "8.0.24.0",
             "fileVersion": "8.0.2426.7207"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Connections.Abstractions/8.0.25": {
+        "dependencies": {
+          "Microsoft.Extensions.Features": "8.0.25",
+          "System.IO.Pipelines": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Connections.Abstractions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.2526.11225"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.SignalR.Common/8.0.25": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Connections.Abstractions": "8.0.25",
+          "Microsoft.Extensions.Options": "8.0.2"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.SignalR.Common.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.2526.11225"
           }
         }
       },
@@ -260,7 +285,7 @@
           "Microsoft.Bcl.AsyncInterfaces": "6.0.0",
           "Microsoft.CodeAnalysis.Common": "4.5.0",
           "System.Composition": "6.0.0",
-          "System.IO.Pipelines": "6.0.3",
+          "System.IO.Pipelines": "8.0.0",
           "System.Threading.Channels": "6.0.0"
         },
         "runtime": {
@@ -524,6 +549,14 @@
           }
         }
       },
+      "Microsoft.Extensions.Features/8.0.25": {
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Features.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.2526.11225"
+          }
+        }
+      },
       "Microsoft.Extensions.Logging/8.0.1": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "8.0.1",
@@ -703,25 +736,6 @@
           }
         }
       },
-      "Polly/8.4.2": {
-        "dependencies": {
-          "Polly.Core": "8.4.2"
-        },
-        "runtime": {
-          "lib/net6.0/Polly.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.4.2.3950"
-          }
-        }
-      },
-      "Polly.Core/8.4.2": {
-        "runtime": {
-          "lib/net8.0/Polly.Core.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.4.2.3950"
-          }
-        }
-      },
       "Swashbuckle.AspNetCore/6.6.2": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -875,7 +889,7 @@
           }
         }
       },
-      "System.IO.Pipelines/6.0.3": {},
+      "System.IO.Pipelines/8.0.0": {},
       "System.Memory/4.5.4": {},
       "System.Memory.Data/1.0.2": {
         "dependencies": {
@@ -939,7 +953,6 @@
           "Microsoft.EntityFrameworkCore": "8.0.24",
           "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
           "Npgsql": "8.0.8",
-          "Polly": "8.4.2",
           "task1.DataLayer": "1.0.0"
         },
         "runtime": {
@@ -1006,6 +1019,20 @@
       "sha512": "sha512-Uwr3m28coB7AIYn4CN/qlTh4FZTGMs51oSyXUyYKYHJTH1xCfnZOeaNe0T3qCKzYc8gvZJPZ9KzKLpJlAZ7mlQ==",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.24",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.8.0.24.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Connections.Abstractions/8.0.25": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sw3u3kuPJwDlfjTmKbvwoRiE0+5EiAxN4ipZ0J0TOWMqNgH/M4kaP8iSLiDaG8H4VmmqZLNWDIWuSRawqEjmog==",
+      "path": "microsoft.aspnetcore.connections.abstractions/8.0.25",
+      "hashPath": "microsoft.aspnetcore.connections.abstractions.8.0.25.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.SignalR.Common/8.0.25": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2NfngjxXP0b9xWJ1LTmDsI9HR7KMkzLAw7NJ+uSOy2eOZ2VcYFlqtZGE7bfJZqJOUBIjXDeE0oWPjdWz9gbppg==",
+      "path": "microsoft.aspnetcore.signalr.common/8.0.25",
+      "hashPath": "microsoft.aspnetcore.signalr.common.8.0.25.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
       "type": "package",
@@ -1161,6 +1188,13 @@
       "path": "microsoft.extensions.dependencymodel/8.0.2",
       "hashPath": "microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512"
     },
+    "Microsoft.Extensions.Features/8.0.25": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rlfHsP2XPAQtTDAuDrOD6pdoQ/Bg1GuUakAuOYzUE9POkokmFpOYbhbVUTLx9gmu0Pywo7LlxuBnRDAfynwlkg==",
+      "path": "microsoft.extensions.features/8.0.25",
+      "hashPath": "microsoft.extensions.features.8.0.25.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/8.0.1": {
       "type": "package",
       "serviceable": true,
@@ -1279,20 +1313,6 @@
       "sha512": "sha512-leShR/O/nSIS3Jpj8yUBmkzaXzBbtlV326+MYkX2BwAj2qSNrUv/H6m8G9Hnv2zUkQYccTpmV5jIVq5vdciEUA==",
       "path": "npgsql.entityframeworkcore.postgresql/8.0.11",
       "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512"
-    },
-    "Polly/8.4.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/qfe/eoHQ9tJOGVmJ/y+fUvK5nHDrS0EZ/DguwYXGN8gnDwlUWdmPqUqoj0PJvg8awELac+9YL7W0GOd1vTORg==",
-      "path": "polly/8.4.2",
-      "hashPath": "polly.8.4.2.nupkg.sha512"
-    },
-    "Polly.Core/8.4.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-BpE2I6HBYYA5tF0Vn4eoQOGYTYIK1BlF5EXVgkWGn3mqUUjbXAr13J6fZVbp7Q3epRR8yshacBMlsHMhpOiV3g==",
-      "path": "polly.core/8.4.2",
-      "hashPath": "polly.core.8.4.2.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.6.2": {
       "type": "package",
@@ -1413,12 +1433,12 @@
       "path": "system.identitymodel.tokens.jwt/8.16.0",
       "hashPath": "system.identitymodel.tokens.jwt.8.16.0.nupkg.sha512"
     },
-    "System.IO.Pipelines/6.0.3": {
+    "System.IO.Pipelines/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ryTgF+iFkpGZY1vRQhfCzX0xTdlV3pyaTTqRu2ETbEv+HlV7O6y7hyQURnghNIXvctl5DuZ//Dpks6HdL/Txgw==",
-      "path": "system.io.pipelines/6.0.3",
-      "hashPath": "system.io.pipelines.6.0.3.nupkg.sha512"
+      "sha512": "sha512-FHNOatmUq0sqJOkTx+UF/9YK1f180cnW5FVqnQMvYUN0elp6wFzbtPSiqbo1/ru8ICp43JM1i7kKkk6GsNGHlA==",
+      "path": "system.io.pipelines/8.0.0",
+      "hashPath": "system.io.pipelines.8.0.0.nupkg.sha512"
     },
     "System.Memory/4.5.4": {
       "type": "package",

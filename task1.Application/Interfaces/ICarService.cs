@@ -9,7 +9,7 @@ namespace task1.Application.Interfaces
         Task<CarModel> AddCarAsync(CarModel carModel);
         Task<CarModel?> UpdateCarAsync(int id, CarModel carModel);
         Task<bool> DeleteCarAsync(int id);
-        Task<List<CarModel>> PaginateCarsAsync(int page);
+        Task<List<CarModel>> PaginateCarsAsync(int page, int pageSize);
         Task<int> GetCountAsync();
     }
 }

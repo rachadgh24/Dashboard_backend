@@ -12,7 +12,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     <PackageReference Include="Npgsql" Version="8.0.8" />
-    <PackageReference Include="Polly" Version="8.4.2" />
     <ProjectReference Include="..\task1.DataLayer\task1.DataLayer.csproj" />
   </ItemGroup>
 

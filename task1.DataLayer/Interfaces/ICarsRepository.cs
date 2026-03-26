@@ -9,7 +9,7 @@ namespace task1.DataLayer.Interfaces
     Task<Car?> UpdateCar(int id, Car car);
         Task<bool> DeleteCar(int id);
     Task<Car> AddCarAsync(Car car);
-        Task<List<Car>> PaginateCars(int page);
+        Task<List<Car>> PaginateCars(int page, int pageSize);
         Task<int> GetCountAsync();
         Task SaveChangesAsync();
     }

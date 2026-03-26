@@ -33,17 +33,17 @@ namespace task1.Controllers
 
         [Authorize(Policy = "ViewUsers")]
         [HttpGet("paginate")]
-        public async Task<IActionResult> PaginateUsers([FromQuery] int page = 1)
+        public async Task<IActionResult> PaginateUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 4, [FromQuery] string? role = null)
         {
-            var users = await _userService.PaginateUsersAsync(page);
+            var users = await _userService.PaginateUsersAsync(page, pageSize, role);
             return Ok(new ApiResponse<List<UserModel>> { Data = users });
         }
 
         [Authorize(Policy = "ViewUsers")]
         [HttpGet("count")]
-        public async Task<IActionResult> GetUsersCount()
+        public async Task<IActionResult> GetUsersCount([FromQuery] string? role = null)
         {
-            var count = await _userService.GetCountAsync();
+            var count = await _userService.GetCountAsync(role);
             return Ok(new ApiResponse<int> { Data = count });
         }
 

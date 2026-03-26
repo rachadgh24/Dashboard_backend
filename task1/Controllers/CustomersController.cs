@@ -85,9 +85,9 @@ namespace task1.Controllers
 
         [Authorize(Policy = "ViewCustomers")]
         [HttpGet("paginate")]
-        public async Task<IActionResult> PaginateCustomers([FromQuery] int page = 1, [FromQuery] string? sortBy = null)
+        public async Task<IActionResult> PaginateCustomers([FromQuery] int page = 1, [FromQuery] int pageSize = 4, [FromQuery] string? sortBy = null)
         {
-            var customers = await _customerService.PaginateCustomersAsync(page, sortBy);
+            var customers = await _customerService.PaginateCustomersAsync(page, pageSize, sortBy);
             return Ok(new ApiResponse<List<CustomerModel>> { Data = customers });
         }
 

@@ -72,9 +72,9 @@ namespace task1.Controllers{
 
     [Authorize(Policy = "ViewCars")]
     [HttpGet("paginate")]
-    public async Task<IActionResult> PaginateCars([FromQuery] int page = 1)
+    public async Task<IActionResult> PaginateCars([FromQuery] int page = 1, [FromQuery] int pageSize = 4)
     {
-        var cars = await _carService.PaginateCarsAsync(page);
+        var cars = await _carService.PaginateCarsAsync(page, pageSize);
         return Ok(new ApiResponse<List<CarModel>> { Data = cars });
     }
 

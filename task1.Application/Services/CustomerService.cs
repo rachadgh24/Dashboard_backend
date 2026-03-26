@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using task1.Application;
 using task1.Application.Interfaces;
 using task1.Application.Models;
-using task1.Application.Resilience;
 using task1.DataLayer.Entities;
 using task1.DataLayer.Interfaces;
 
@@ -10,17 +10,15 @@ namespace task1.Application.Services
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly IDatabaseResiliencePipeline _resilience;
 
-        public CustomerService(ICustomerRepository customerRepository, IDatabaseResiliencePipeline resilience)
+        public CustomerService(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
-            _resilience = resilience;
         }
 
         public async Task<List<CustomerModel>> GetAllAsync()
         {
-            var customers = await _resilience.ExecuteAsync(() => _customerRepository.GetAll().ToListAsync());
+            var customers = await _customerRepository.GetAll().ToListAsync();
             return customers.Select(c => new CustomerModel
             {
                 Email = c.Email,
@@ -33,7 +31,7 @@ namespace task1.Application.Services
 
         public async Task<CustomerModel?> GetByIdAsync(int id)
         {
-            var customer = await _resilience.ExecuteAsync(() => _customerRepository.GetById(id).FirstOrDefaultAsync());
+            var customer = await _customerRepository.GetById(id).FirstOrDefaultAsync();
             if (customer == null) return null;
 
             return new CustomerModel
@@ -56,8 +54,8 @@ namespace task1.Application.Services
                 City = customerModel.City ?? string.Empty
             };
 
-            var addedEntity = await _resilience.ExecuteAsync(() => _customerRepository.AddCustomerAsync(customer));
-            await _resilience.ExecuteAsync(() => _customerRepository.SaveChangesAsync());
+            var addedEntity = await _customerRepository.AddCustomerAsync(customer);
+            await _customerRepository.SaveChangesAsync();
 
             return new CustomerModel
             {
@@ -79,10 +77,10 @@ namespace task1.Application.Services
                 Email = customerModel.Email ?? string.Empty
             };
 
-            var updatedEntity = await _resilience.ExecuteAsync(() => _customerRepository.UpdateCustomer(id, customer));
+            var updatedEntity = await _customerRepository.UpdateCustomer(id, customer);
             if (updatedEntity == null) return null;
 
-            await _resilience.ExecuteAsync(() => _customerRepository.SaveChangesAsync());
+            await _customerRepository.SaveChangesAsync();
             return new CustomerModel
             {
                 Id = updatedEntity.Id,
@@ -95,16 +93,16 @@ namespace task1.Application.Services
 
         public async Task<bool> DeleteCustomerAsync(int id)
         {
-            var deleted = await _resilience.ExecuteAsync(() => _customerRepository.DeleteCustomer(id));
+            var deleted = await _customerRepository.DeleteCustomer(id);
             if (!deleted) return false;
 
-            await _resilience.ExecuteAsync(() => _customerRepository.SaveChangesAsync());
+            await _customerRepository.SaveChangesAsync();
             return true;
         }
 
         public async Task<List<CustomerModel>> Search(string? query)
         {
-            var customers = await _resilience.ExecuteAsync(() => _customerRepository.Search(query));
+            var customers = await _customerRepository.Search(query);
             return customers.Select(c => new CustomerModel
             {
                 Id = c.Id,
@@ -122,9 +120,11 @@ namespace task1.Application.Services
             }).ToList();
         }
 
-        public async Task<List<CustomerModel>> PaginateCustomersAsync(int page, string? sortBy)
+        public async Task<List<CustomerModel>> PaginateCustomersAsync(int page, int pageSize, string? sortBy)
         {
-            var customers = await _resilience.ExecuteAsync(() => _customerRepository.PaginateCustomers(page, sortBy));
+            var p = PaginationQuery.NormalizePage(page);
+            var ps = PaginationQuery.NormalizePageSize(pageSize);
+            var customers = await _customerRepository.PaginateCustomers(p, ps, sortBy);
             return customers.Select(c => new CustomerModel
             {
                 Id = c.Id,
@@ -142,11 +142,11 @@ namespace task1.Application.Services
             }).ToList();
         }
 
-        public async Task<int> GetCountAsync() => await _resilience.ExecuteAsync(() => _customerRepository.GetCountAsync());
+        public async Task<int> GetCountAsync() => await _customerRepository.GetCountAsync();
 
         public async Task<(string Name, int CarCount, List<CarModel> Cars)?> GetCustomerWithMostCarsAsync()
         {
-            var result = await _resilience.ExecuteAsync(() => _customerRepository.GetCustomerWithMostCarsAsync());
+            var result = await _customerRepository.GetCustomerWithMostCarsAsync();
             if (result == null) return null;
             var name = $"{result.Value.Customer.Name} {result.Value.Customer.LastName}".Trim();
             if (string.IsNullOrEmpty(name)) name = result.Value.Customer.Email;

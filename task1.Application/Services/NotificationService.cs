@@ -1,6 +1,5 @@
 using task1.Application.Interfaces;
 using task1.Application.Models;
-using task1.Application.Resilience;
 using task1.DataLayer.Entities;
 using task1.DataLayer.Interfaces;
 
@@ -9,12 +8,12 @@ namespace task1.Application.Services
     public class NotificationService : INotificationService
     {
         private readonly INotificationRepository _notificationRepository;
-        private readonly IDatabaseResiliencePipeline _resilience;
+        private readonly INotificationRealtimePublisher _realtime;
 
-        public NotificationService(INotificationRepository notificationRepository, IDatabaseResiliencePipeline resilience)
+        public NotificationService(INotificationRepository notificationRepository, INotificationRealtimePublisher realtime)
         {
             _notificationRepository = notificationRepository;
-            _resilience = resilience;
+            _realtime = realtime;
         }
 
         public async Task RecordAsync(string message)
@@ -30,13 +29,14 @@ namespace task1.Application.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            await _resilience.ExecuteAsync(() => _notificationRepository.AddAsync(notification));
-            await _resilience.ExecuteAsync(() => _notificationRepository.SaveChangesAsync());
+            await _notificationRepository.AddAsync(notification);
+            await _notificationRepository.SaveChangesAsync();
+            await _realtime.NotifyCreatedAsync(notification.Id, notification.Message, notification.CreatedAt);
         }
 
         public async Task<List<NotificationModel>> GetAllAsync()
         {
-            var notifications = await _resilience.ExecuteAsync(() => _notificationRepository.GetAllAsync());
+            var notifications = await _notificationRepository.GetAllAsync();
             return notifications
                 .Select(n => new NotificationModel
                 {
@@ -49,19 +49,21 @@ namespace task1.Application.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var deleted = await _resilience.ExecuteAsync(() => _notificationRepository.DeleteAsync(id));
+            var deleted = await _notificationRepository.DeleteAsync(id);
             if (!deleted) return false;
 
-            await _resilience.ExecuteAsync(() => _notificationRepository.SaveChangesAsync());
+            await _notificationRepository.SaveChangesAsync();
+            await _realtime.NotifyDeletedAsync(id);
             return true;
         }
 
         public async Task<int> ClearAsync()
         {
-            var count = await _resilience.ExecuteAsync(() => _notificationRepository.DeleteAllAsync());
+            var count = await _notificationRepository.DeleteAllAsync();
             if (count > 0)
             {
-                await _resilience.ExecuteAsync(() => _notificationRepository.SaveChangesAsync());
+                await _notificationRepository.SaveChangesAsync();
+                await _realtime.NotifyClearedAsync();
             }
 
             return count;

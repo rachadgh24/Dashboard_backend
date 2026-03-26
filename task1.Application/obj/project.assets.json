@@ -634,35 +634,6 @@
           }
         }
       },
-      "Polly/8.4.2": {
-        "type": "package",
-        "dependencies": {
-          "Polly.Core": "8.4.2"
-        },
-        "compile": {
-          "lib/net6.0/Polly.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Polly.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "Polly.Core/8.4.2": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Polly.Core.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Polly.Core.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -1933,59 +1904,6 @@
         "postgresql.png"
       ]
     },
-    "Polly/8.4.2": {
-      "sha512": "/qfe/eoHQ9tJOGVmJ/y+fUvK5nHDrS0EZ/DguwYXGN8gnDwlUWdmPqUqoj0PJvg8awELac+9YL7W0GOd1vTORg==",
-      "type": "package",
-      "path": "polly/8.4.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net462/Polly.dll",
-        "lib/net462/Polly.pdb",
-        "lib/net462/Polly.xml",
-        "lib/net472/Polly.dll",
-        "lib/net472/Polly.pdb",
-        "lib/net472/Polly.xml",
-        "lib/net6.0/Polly.dll",
-        "lib/net6.0/Polly.pdb",
-        "lib/net6.0/Polly.xml",
-        "lib/netstandard2.0/Polly.dll",
-        "lib/netstandard2.0/Polly.pdb",
-        "lib/netstandard2.0/Polly.xml",
-        "package-icon.png",
-        "package-readme.md",
-        "polly.8.4.2.nupkg.sha512",
-        "polly.nuspec"
-      ]
-    },
-    "Polly.Core/8.4.2": {
-      "sha512": "BpE2I6HBYYA5tF0Vn4eoQOGYTYIK1BlF5EXVgkWGn3mqUUjbXAr13J6fZVbp7Q3epRR8yshacBMlsHMhpOiV3g==",
-      "type": "package",
-      "path": "polly.core/8.4.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net462/Polly.Core.dll",
-        "lib/net462/Polly.Core.pdb",
-        "lib/net462/Polly.Core.xml",
-        "lib/net472/Polly.Core.dll",
-        "lib/net472/Polly.Core.pdb",
-        "lib/net472/Polly.Core.xml",
-        "lib/net6.0/Polly.Core.dll",
-        "lib/net6.0/Polly.Core.pdb",
-        "lib/net6.0/Polly.Core.xml",
-        "lib/net8.0/Polly.Core.dll",
-        "lib/net8.0/Polly.Core.pdb",
-        "lib/net8.0/Polly.Core.xml",
-        "lib/netstandard2.0/Polly.Core.dll",
-        "lib/netstandard2.0/Polly.Core.pdb",
-        "lib/netstandard2.0/Polly.Core.xml",
-        "package-icon.png",
-        "package-readme.md",
-        "polly.core.8.4.2.nupkg.sha512",
-        "polly.core.nuspec"
-      ]
-    },
     "System.ClientModel/1.0.0": {
       "sha512": "I3CVkvxeqFYjIVEP59DnjbeoGNfo/+SZrCLpRz2v/g0gpCHaEMPtWSY0s9k/7jR1rAsLNg2z2u1JRB76tPjnIw==",
       "type": "package",
@@ -2628,7 +2546,6 @@
       "Microsoft.EntityFrameworkCore >= 8.0.24",
       "Microsoft.Extensions.Logging.Abstractions >= 8.0.2",
       "Npgsql >= 8.0.8",
-      "Polly >= 8.4.2",
       "task1.DataLayer >= 1.0.0"
     ]
   },
@@ -2680,7 +2597,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -2705,10 +2622,6 @@
           "Npgsql": {
             "target": "Package",
             "version": "[8.0.8, )"
-          },
-          "Polly": {
-            "target": "Package",
-            "version": "[8.4.2, )"
           }
         },
         "imports": [
@@ -2727,7 +2640,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

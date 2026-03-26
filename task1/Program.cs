@@ -1,5 +1,6 @@
 using System.Text.Json;
 using task1.Application.DependencyInjection;
+using task1.Application.Interfaces;
 using task1.DataLayer.DependencyInjection;
 using task1.DataLayer.Entities;
 using task1.DataLayer.DbContexts;
@@ -10,18 +11,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using task1;
 using task1.Authorization;
+using task1.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ===== Add Services =====
 builder.Services.AddControllers();
-
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("NextPolicy",
         policy => policy
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins(
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+                "https://localhost:3000",
+                "https://127.0.0.1:3000")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -30,6 +37,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationLayerServices(builder.Configuration);
+builder.Services.AddScoped<INotificationRealtimePublisher, NotificationsRealtimePublisher>();
 // builder.Services.AddDataLayerRepositories(); // keep if needed
 
 // ===== JWT Authentication =====
@@ -60,6 +68,19 @@ builder.Services.AddAuthentication(options =>
 
     options.Events = new JwtBearerEvents
     {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+
+            if (!string.IsNullOrEmpty(accessToken) &&
+                path.StartsWithSegments("/hubs/notifications"))
+            {
+                context.Token = accessToken;
+            }
+
+            return Task.CompletedTask;
+        },
         OnTokenValidated = context =>
         {
             // Support old tokens that used long claim URIs: ensure "role" and "name" exist for [Authorize] and User.Identity.Name
@@ -122,18 +143,17 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<JwtService>();
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
-app.UseCors("NextPolicy");
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors("NextPolicy");
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<NotificationsHub>("/hubs/notifications");
 app.Run();

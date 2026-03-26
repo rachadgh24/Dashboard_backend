@@ -22,20 +22,24 @@ namespace task1.DataLayer.Repositories
             return await query.OrderBy(u => u.Id).ToListAsync();
         }
 
-        public async Task<List<User>> PaginateUsersAsync(int page)
+        public async Task<List<User>> PaginateUsersAsync(int page, int pageSize, string? role = null)
         {
-            return await _context.Users
-                .AsNoTracking()
-                .Include(u => u.Role)
+            IQueryable<User> query = _context.Users.AsNoTracking().Include(u => u.Role);
+            if (!string.IsNullOrWhiteSpace(role))
+                query = query.Where(u => u.Role.Name == role);
+            return await query
                 .OrderBy(u => u.Id)
-                .Skip((page - 1) * 4)
-                .Take(4)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 
-        public async Task<int> GetCountAsync()
+        public async Task<int> GetCountAsync(string? role = null)
         {
-            return await _context.Users.CountAsync();
+            IQueryable<User> query = _context.Users;
+            if (!string.IsNullOrWhiteSpace(role))
+                query = query.Where(u => u.Role.Name == role);
+            return await query.CountAsync();
         }
 
         public async Task<User?> GetByPhoneNumberAsync(string phoneNumber)

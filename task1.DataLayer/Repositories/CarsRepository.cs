@@ -48,12 +48,12 @@ namespace task1.DataLayer.Repositories{
             _context.Cars.Remove(entity);
             return true;
         }
-        public async Task<List<Car>> PaginateCars(int page)
+        public async Task<List<Car>> PaginateCars(int page, int pageSize)
         {
             return await _context.Cars
                 .OrderBy(c => c.Id)
-                .Skip((page - 1) * 4)
-                .Take(4)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 
