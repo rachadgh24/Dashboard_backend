@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using task1.Application.Interfaces;
-using task1.DataLayer.Entities;
-using task1.DataLayer.Interfaces;
 using task1.Models;
 
 namespace task1.Controllers
@@ -11,39 +9,29 @@ namespace task1.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly JwtService _jwtService;
-        private readonly IUserRepository _userRepository;
-        private readonly IRoleRepository _roleRepository;
-        private readonly IRoleClaimsService _roleClaimsService;
+        private readonly IAuthService _authService;
 
         public AuthController(
-            JwtService jwtService,
-            IUserRepository userRepository,
-            IRoleRepository roleRepository,
-            IRoleClaimsService roleClaimsService)
+            IAuthService authService)
         {
-            _jwtService = jwtService;
-            _userRepository = userRepository;
-            _roleRepository = roleRepository;
-            _roleClaimsService = roleClaimsService;
+            _authService = authService;
         }
 
         /// <summary>
-        /// Returns the current user's permissions (claims with category) for the frontend to show/hide sections and actions.
         /// </summary>
         [Authorize]
         [HttpGet("me/permissions")]
         public async Task<IActionResult> GetMyPermissions()
         {
             var roleName = User.FindFirst("role")?.Value;
-            if (string.IsNullOrWhiteSpace(roleName))
-                return Ok(new ApiResponse<MePermissionsResponse> { Data = new MePermissionsResponse { Claims = new List<ClaimDto>() } });
+            var tenantIdClaim = User.FindFirst("tenant_id")?.Value;
+            if (!Guid.TryParse(tenantIdClaim, out var tenantId))
+            {
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+            }
 
-            var claimNames = await _roleClaimsService.GetClaimNamesForRoleAsync(roleName);
-            var allClaims = await _roleRepository.GetAllClaimsAsync();
-            var nameSet = new HashSet<string>(claimNames, StringComparer.OrdinalIgnoreCase);
-            var claims = allClaims
-                .Where(c => nameSet.Contains(c.Name))
+            var permissions = await _authService.GetPermissionsAsync(roleName, tenantId);
+            var claims = permissions.Claims
                 .Select(c => new ClaimDto { Id = c.Id, Name = c.Name, Category = c.Category })
                 .ToList();
             return Ok(new ApiResponse<MePermissionsResponse> { Data = new MePermissionsResponse { Claims = claims } });
@@ -57,14 +45,9 @@ namespace task1.Controllers
                 return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Phone number and password are required." } });
             }
 
-            var phoneNumber = request.PhoneNumber.Trim();
-            var user = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
-            if (user != null && BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            {
-                var roleName = user.Role?.Name ?? "Admin";
-                var token = _jwtService.GenerateToken(user.Id.ToString(), user.PhoneNumber, user.Name, roleName);
-                return Ok(new ApiResponse<object> { Data = new { token } });
-            }
+            var loginResult = await _authService.LoginAsync(request.PhoneNumber, request.Password);
+            if (loginResult != null)
+                return Ok(new ApiResponse<object> { Data = new { token = loginResult.Token } });
 
             return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Invalid phone number or password." } });
         }
@@ -72,35 +55,31 @@ namespace task1.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.PhoneNumber) || string.IsNullOrWhiteSpace(request.Password))
+            if (string.IsNullOrWhiteSpace(request.OrganizationName) ||
+                string.IsNullOrWhiteSpace(request.PhoneNumber) ||
+                string.IsNullOrWhiteSpace(request.Password))
             {
-                return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Phone number and password are required." } });
+                return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Organization name, phone number, and password are required." } });
             }
 
-            var normalizedPhoneNumber = request.PhoneNumber.Trim();
-            var existingUser = await _userRepository.GetByPhoneNumberAsync(normalizedPhoneNumber);
-            if (existingUser != null)
+            try
             {
-                return Conflict(new ApiResponse<object> { Error = new ApiError { Code = "CONFLICT", Message = "Phone number is already registered." } });
+                var registerResult = await _authService.RegisterAsync(
+                    request.OrganizationName,
+                    request.Name,
+                    request.LastName,
+                    request.PhoneNumber,
+                    request.Password);
+                return Ok(new ApiResponse<object> { Data = new { token = registerResult.Token } });
             }
-
-            var adminRole = await _roleRepository.GetByNameAsync("Admin");
-            if (adminRole == null)
-                return StatusCode(500, new ApiResponse<object> { Error = new ApiError { Code = "SERVER_ERROR", Message = "Admin role not found. Run database migrations and seed data." } });
-
-            var newUser = new User
+            catch (InvalidOperationException ex) when (ex.Message.Contains("already registered", StringComparison.OrdinalIgnoreCase))
             {
-                PhoneNumber = normalizedPhoneNumber,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                Name = request.Name?.Trim() ?? string.Empty,
-                RoleId = adminRole.Id
-            };
-
-            var createdUser = await _userRepository.AddUserAsync(newUser);
-            await _userRepository.SaveChangesAsync();
-
-            var token = _jwtService.GenerateToken(createdUser.Id.ToString(), createdUser.PhoneNumber, createdUser.Name, adminRole.Name);
-            return Ok(new ApiResponse<object> { Data = new { token } });
+                return Conflict(new ApiResponse<object> { Error = new ApiError { Code = "CONFLICT", Message = ex.Message } });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return StatusCode(500, new ApiResponse<object> { Error = new ApiError { Code = "SERVER_ERROR", Message = ex.Message } });
+            }
         }
     }
 
@@ -112,8 +91,10 @@ namespace task1.Controllers
 
     public class RegisterRequest
     {
+        public string OrganizationName { get; set; } = string.Empty;
+        public string? Name { get; set; }
+        public string? LastName { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public string? Name { get; set; }
     }
 }

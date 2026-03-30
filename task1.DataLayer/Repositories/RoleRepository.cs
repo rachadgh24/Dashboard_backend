@@ -20,14 +20,34 @@ namespace task1.DataLayer.Repositories
                 .FirstOrDefaultAsync(r => r.Name == name);
         }
 
+        public async Task<Role?> GetByNameAsync(string name, Guid tenantId)
+        {
+            return await _context.Roles
+                .FirstOrDefaultAsync(r => r.Name == name && r.TenantId == tenantId);
+        }
+
         public async Task<Role?> GetByIdAsync(int id)
         {
             return await _context.Roles.FindAsync(id);
         }
 
+        public async Task<Role?> GetByIdAsync(int id, Guid tenantId)
+        {
+            return await _context.Roles.FirstOrDefaultAsync(r => r.Id == id && r.TenantId == tenantId);
+        }
+
         public async Task<List<Role>> GetAllAsync()
         {
             return await _context.Roles.AsNoTracking().OrderBy(r => r.Id).ToListAsync();
+        }
+
+        public async Task<List<Role>> GetAllAsync(Guid tenantId)
+        {
+            return await _context.Roles
+                .AsNoTracking()
+                .Where(r => r.TenantId == tenantId)
+                .OrderBy(r => r.Id)
+                .ToListAsync();
         }
 
         public async Task<List<string>> GetClaimNamesByRoleNameAsync(string roleName)
@@ -37,6 +57,19 @@ namespace task1.DataLayer.Repositories
             return await _context.Roles
                 .AsNoTracking()
                 .Where(r => r.Name == roleName)
+                .SelectMany(r => r.RoleClaims.Select(rc => rc.Claim.Name))
+                .Distinct()
+                .OrderBy(x => x)
+                .ToListAsync();
+        }
+
+        public async Task<List<string>> GetClaimNamesByRoleNameAsync(string roleName, Guid tenantId)
+        {
+            if (string.IsNullOrWhiteSpace(roleName)) return new List<string>();
+
+            return await _context.Roles
+                .AsNoTracking()
+                .Where(r => r.Name == roleName && r.TenantId == tenantId)
                 .SelectMany(r => r.RoleClaims.Select(rc => rc.Claim.Name))
                 .Distinct()
                 .OrderBy(x => x)
@@ -74,6 +107,15 @@ namespace task1.DataLayer.Repositories
         public async Task<string?> GetRoleNameByIdAsync(int id)
         {
             return await _context.Roles.AsNoTracking().Where(r => r.Id == id).Select(r => r.Name).FirstOrDefaultAsync();
+        }
+
+        public async Task<string?> GetRoleNameByIdAsync(int id, Guid tenantId)
+        {
+            return await _context.Roles
+                .AsNoTracking()
+                .Where(r => r.Id == id && r.TenantId == tenantId)
+                .Select(r => r.Name)
+                .FirstOrDefaultAsync();
         }
 
         public async Task SaveChangesAsync()

@@ -10,5 +10,7 @@ namespace task1.DataLayer.Entities
 
         public ICollection<User> Users { get; set; } = new List<User>();
         public ICollection<RoleClaim> RoleClaims { get; set; } = new List<RoleClaim>();
+    public Guid TenantId { get; set; }       
+    public Tenant Tenant { get; set; } = null!;
     }
 }

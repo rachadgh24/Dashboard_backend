@@ -12,5 +12,7 @@ namespace task1.DataLayer.Entities
 
         [NotMapped]
         public List<Car> Cars { get; set; } = new();
+          public Guid TenantId { get; set; }       
+    public Tenant Tenant { get; set; } = null!;
     }
 }

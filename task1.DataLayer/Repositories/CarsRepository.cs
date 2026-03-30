@@ -17,23 +17,23 @@ namespace task1.DataLayer.Repositories{
             _context = context;
         }
 
-        public IQueryable<Car> GetAll()
+        public IQueryable<Car> GetAll(Guid tenantId)
         {
-            return _context.Cars;
+            return _context.Cars.Where(c => c.TenantId == tenantId);
         }
 
-        public IQueryable<Car> GetById(int id)
+        public IQueryable<Car> GetById(Guid tenantId, int id)
         {
-            return _context.Cars.Where(c => c.Id == id);
+            return _context.Cars.Where(c => c.TenantId == tenantId && c.Id == id);
         }
         public Task<Car> AddCarAsync(Car car)
         {
             var entity = _context.Cars.Add(car);
             return Task.FromResult(entity.Entity);
         }
-        public async Task<Car?> UpdateCar(int id, Car car)
+        public async Task<Car?> UpdateCar(Guid tenantId, int id, Car car)
         {
-            var entity = await _context.Cars.FindAsync(id);
+            var entity = await _context.Cars.FirstOrDefaultAsync(c => c.TenantId == tenantId && c.Id == id);
             if (entity == null) return null;
             entity.Model = car.Model;
             entity.maxSpeed = car.maxSpeed;
@@ -41,25 +41,26 @@ namespace task1.DataLayer.Repositories{
             _context.Update(entity);
             return entity;
         }
-        public async Task<bool> DeleteCar(int id)
+        public async Task<bool> DeleteCar(Guid tenantId, int id)
         {
-            var entity = await _context.Cars.FindAsync(id);
+            var entity = await _context.Cars.FirstOrDefaultAsync(c => c.TenantId == tenantId && c.Id == id);
             if (entity == null) return false;
             _context.Cars.Remove(entity);
             return true;
         }
-        public async Task<List<Car>> PaginateCars(int page, int pageSize)
+        public async Task<List<Car>> PaginateCars(Guid tenantId, int page, int pageSize)
         {
             return await _context.Cars
+                .Where(c => c.TenantId == tenantId)
                 .OrderBy(c => c.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
         }
 
-        public async Task<int> GetCountAsync()
+        public async Task<int> GetCountAsync(Guid tenantId)
         {
-            return await _context.Cars.CountAsync();
+            return await _context.Cars.CountAsync(c => c.TenantId == tenantId);
         }
 
         public async Task SaveChangesAsync()

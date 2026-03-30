@@ -16,5 +16,10 @@ namespace task1.Application.Services
         {
             return await _roleRepository.GetClaimNamesByRoleNameAsync(roleName);
         }
+
+        public async Task<List<string>> GetClaimNamesForRoleAsync(string roleName, Guid tenantId)
+        {
+            return await _roleRepository.GetClaimNamesByRoleNameAsync(roleName, tenantId);
+        }
     }
 }

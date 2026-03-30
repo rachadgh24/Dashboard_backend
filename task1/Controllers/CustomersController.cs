@@ -27,7 +27,10 @@ namespace task1.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
-            var customers = await _customerService.GetAllAsync();
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var customers = await _customerService.GetAllAsync(tenantId);
             return Ok(new ApiResponse<List<CustomerModel>> { Data = customers });
         }
 
@@ -35,7 +38,10 @@ namespace task1.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await _customerService.GetByIdAsync(id);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var customer = await _customerService.GetByIdAsync(tenantId, id);
             if (customer == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Customer not found." } });
             return Ok(new ApiResponse<CustomerModel> { Data = customer });
         }
@@ -45,13 +51,16 @@ namespace task1.Controllers
         public async Task<IActionResult> AddCustomer([FromBody] CustomerModel? customerModel)
         {
             if (customerModel == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
-            var addedCustomer = await _customerService.AddCustomerAsync(customerModel);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var addedCustomer = await _customerService.AddCustomerAsync(tenantId, customerModel);
             var role = User.FindFirst("role")?.Value ?? string.Empty;
             if (role == UserRoles.GeneralManager || role == UserRoles.SocialMediaManager)
             {
                 var name = ActionNotificationHelper.GetDisplayName(User);
                 var message = ActionNotificationHelper.Format(role, name, "added a customer");
-                await _notificationService.RecordAsync(message);
+                await _notificationService.RecordAsync(message, tenantId);
                 return Ok(new ApiResponse<object> { Data = new { customer = addedCustomer, message } });
             }
             return Ok(new ApiResponse<CustomerModel> { Data = addedCustomer });
@@ -62,7 +71,10 @@ namespace task1.Controllers
         public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerModel? customerModel)
         {
             if (customerModel == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
-            var updatedCustomer = await _customerService.UpdateCustomerAsync(id, customerModel);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var updatedCustomer = await _customerService.UpdateCustomerAsync(tenantId, id, customerModel);
             if (updatedCustomer == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Customer not found." } });
             return Ok(new ApiResponse<CustomerModel> { Data = updatedCustomer });
         }
@@ -71,7 +83,10 @@ namespace task1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            if (!await _customerService.DeleteCustomerAsync(id)) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Customer not found." } });
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            if (!await _customerService.DeleteCustomerAsync(tenantId, id)) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Customer not found." } });
             return Ok(new ApiResponse<object> { Data = null });
         }
 
@@ -79,7 +94,10 @@ namespace task1.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] string? query)
         {
-            var customers = await _customerService.Search(query);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var customers = await _customerService.Search(tenantId, query);
             return Ok(new ApiResponse<List<CustomerModel>> { Data = customers });
         }
 
@@ -87,7 +105,10 @@ namespace task1.Controllers
         [HttpGet("paginate")]
         public async Task<IActionResult> PaginateCustomers([FromQuery] int page = 1, [FromQuery] int pageSize = 4, [FromQuery] string? sortBy = null)
         {
-            var customers = await _customerService.PaginateCustomersAsync(page, pageSize, sortBy);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var customers = await _customerService.PaginateCustomersAsync(tenantId, page, pageSize, sortBy);
             return Ok(new ApiResponse<List<CustomerModel>> { Data = customers });
         }
 
@@ -95,8 +116,17 @@ namespace task1.Controllers
         [HttpGet("count")]
         public async Task<IActionResult> GetCustomersCount()
         {
-            var count = await _customerService.GetCountAsync();
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var count = await _customerService.GetCountAsync(tenantId);
             return Ok(new ApiResponse<int> { Data = count });
+        }
+
+        private bool TryGetTenantId(out Guid tenantId)
+        {
+            var tenantClaim = User.FindFirst("tenant_id")?.Value;
+            return Guid.TryParse(tenantClaim, out tenantId) && tenantId != Guid.Empty;
         }
     }
 }

@@ -1,11 +1,7 @@
 using System.Text.Json;
 using task1.Application.DependencyInjection;
 using task1.Application.Interfaces;
-using task1.DataLayer.DependencyInjection;
-using task1.DataLayer.Entities;
-using task1.DataLayer.DbContexts;
 using task1.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -37,9 +33,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApplicationLayerServices(builder.Configuration);
+builder.Services.AddApplicationInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationLayerServices();
 builder.Services.AddScoped<INotificationRealtimePublisher, NotificationsRealtimePublisher>();
-// builder.Services.AddDataLayerRepositories(); // keep if needed
 
 // ===== JWT Authentication =====
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -123,6 +119,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+builder.Services.AddScoped<ITokenService, JwtService>();
 builder.Services.AddAuthorization(options =>
 {
     var permissions = new[]
@@ -141,14 +138,16 @@ builder.Services.AddAuthorization(options =>
             policy.Requirements.Add(new PermissionRequirement(permission)));
     }
 });
-builder.Services.AddScoped<JwtService>();
 var app = builder.Build();
 
 
     app.UseSwagger();
     app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseRouting();
 app.UseCors("NextPolicy");
 

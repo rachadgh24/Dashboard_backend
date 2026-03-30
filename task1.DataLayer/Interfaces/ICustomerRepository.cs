@@ -4,16 +4,16 @@ namespace task1.DataLayer.Interfaces
 {
     public interface ICustomerRepository
     {
-        IQueryable<Customer> GetAll();
-        IQueryable<Customer> GetById(int id);
-        Task<Customer?> GetByEmailAsync(string email);
-        Task<Customer?> UpdateCustomer(int id, Customer customer);
-        Task<bool> DeleteCustomer(int id);
+        IQueryable<Customer> GetAll(Guid tenantId);
+        IQueryable<Customer> GetById(Guid tenantId, int id);
+        Task<Customer?> GetByEmailAsync(Guid tenantId, string email);
+        Task<Customer?> UpdateCustomer(Guid tenantId, int id, Customer customer);
+        Task<bool> DeleteCustomer(Guid tenantId, int id);
         Task<Customer> AddCustomerAsync(Customer customer);
-        Task<List<Customer>> Search(string? query);
-        Task<List<Customer>> PaginateCustomers(int page, int pageSize, string? sortBy);
-        Task<int> GetCountAsync();
-        Task<(Customer Customer, int CarCount)?> GetCustomerWithMostCarsAsync();
+        Task<List<Customer>> Search(Guid tenantId, string? query);
+        Task<List<Customer>> PaginateCustomers(Guid tenantId, int page, int pageSize, string? sortBy);
+        Task<int> GetCountAsync(Guid tenantId);
+        Task<(Customer Customer, int CarCount)?> GetCustomerWithMostCarsAsync(Guid tenantId);
         Task SaveChangesAsync();
     }
 }

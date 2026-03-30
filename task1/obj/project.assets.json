@@ -4086,8 +4086,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.24",
       "Swashbuckle.AspNetCore >= 6.6.2",
       "System.IdentityModel.Tokens.Jwt >= 8.16.0",
-      "task1.Application >= 1.0.0",
-      "task1.DataLayer >= 1.0.0"
+      "task1.Application >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4124,9 +4123,6 @@
           "projectReferences": {
             "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\task1.Application.csproj": {
               "projectPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\task1.Application.csproj"
-            },
-            "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj": {
-              "projectPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj"
             }
           }
         }
@@ -4141,7 +4137,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -4193,7 +4189,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

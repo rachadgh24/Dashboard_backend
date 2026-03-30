@@ -1,30 +1,23 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using System.Security.Claims;
 
 namespace task1.Hubs
 {
     [Authorize]
     public class NotificationsHub : Hub
     {
-        private const string AdminGroup = "admins";
+        private const string NotificationsGroup = "notifications";
 
         public override async Task OnConnectedAsync()
         {
-            var role = Context.User?.FindFirst("role")?.Value
-                       ?? Context.User?.FindFirst(ClaimTypes.Role)?.Value;
-
-            if (string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase))
-            {
-                await Groups.AddToGroupAsync(Context.ConnectionId, AdminGroup);
-            }
+            await Groups.AddToGroupAsync(Context.ConnectionId, NotificationsGroup);
 
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, AdminGroup);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, NotificationsGroup);
             await base.OnDisconnectedAsync(exception);
         }
     }

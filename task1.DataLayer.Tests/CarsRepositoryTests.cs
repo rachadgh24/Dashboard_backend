@@ -8,6 +8,8 @@ namespace task1.DataLayer.Tests;
 
 public class CarsRepositoryTests
 {
+    private static readonly Guid TenantId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+
     [Fact]
     public void GetAll_ReturnsAllCars()
     {
@@ -17,15 +19,15 @@ public class CarsRepositoryTests
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
-            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180 });
-            context.Cars.Add(new Car { Id = 2, Model = "Honda", maxSpeed = 200 });
+            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180, TenantId = TenantId });
+            context.Cars.Add(new Car { Id = 2, Model = "Honda", maxSpeed = 200, TenantId = TenantId });
             context.SaveChanges();
         }
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var result = repo.GetAll().ToList();
+            var result = repo.GetAll(TenantId).ToList();
             Assert.Equal(2, result.Count);
         }
     }
@@ -39,14 +41,14 @@ public class CarsRepositoryTests
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
-            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180 });
+            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180, TenantId = TenantId });
             context.SaveChanges();
         }
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var result = repo.GetById(1).FirstOrDefault();
+            var result = repo.GetById(TenantId, 1).FirstOrDefault();
             Assert.NotNull(result);
             Assert.Equal("Toyota", result.Model);
         }
@@ -62,7 +64,7 @@ public class CarsRepositoryTests
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var car = new Car { Model = "BMW", maxSpeed = 250 };
+            var car = new Car { Model = "BMW", maxSpeed = 250, TenantId = TenantId };
             var added = await repo.AddCarAsync(car);
             await repo.SaveChangesAsync();
 
@@ -80,14 +82,14 @@ public class CarsRepositoryTests
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
-            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180 });
+            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180, TenantId = TenantId });
             await context.SaveChangesAsync();
         }
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var updated = await repo.UpdateCar(1, new Car { Model = "Lexus", maxSpeed = 220, CustomerId = null });
+            var updated = await repo.UpdateCar(TenantId, 1, new Car { Model = "Lexus", maxSpeed = 220, CustomerId = null });
             await repo.SaveChangesAsync();
 
             Assert.NotNull(updated);
@@ -106,7 +108,7 @@ public class CarsRepositoryTests
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var result = await repo.UpdateCar(999, new Car { Model = "Lexus", maxSpeed = 220 });
+            var result = await repo.UpdateCar(TenantId, 999, new Car { Model = "Lexus", maxSpeed = 220 });
             Assert.Null(result);
         }
     }
@@ -120,14 +122,14 @@ public class CarsRepositoryTests
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
-            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180 });
+            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180, TenantId = TenantId });
             await context.SaveChangesAsync();
         }
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var result = await repo.DeleteCar(1);
+            var result = await repo.DeleteCar(TenantId, 1);
             await repo.SaveChangesAsync();
             Assert.True(result);
         }
@@ -143,7 +145,7 @@ public class CarsRepositoryTests
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var result = await repo.DeleteCar(999);
+            var result = await repo.DeleteCar(TenantId, 999);
             Assert.False(result);
         }
     }
@@ -158,15 +160,15 @@ public class CarsRepositoryTests
         using (var context = new DotNetTrainingCoreContext(options))
         {
             for (int i = 1; i <= 6; i++)
-                context.Cars.Add(new Car { Id = i, Model = $"Model{i}", maxSpeed = 150 + i });
+                context.Cars.Add(new Car { Id = i, Model = $"Model{i}", maxSpeed = 150 + i, TenantId = TenantId });
             await context.SaveChangesAsync();
         }
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var page1 = await repo.PaginateCars(1, 4);
-            var page2 = await repo.PaginateCars(2, 4);
+            var page1 = await repo.PaginateCars(TenantId, 1, 4);
+            var page2 = await repo.PaginateCars(TenantId, 2, 4);
 
             Assert.Equal(4, page1.Count);
             Assert.Equal(2, page2.Count);
@@ -184,15 +186,15 @@ public class CarsRepositoryTests
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
-            context.Cars.Add(new Car { Id = 1, Model = "A", maxSpeed = 180 });
-            context.Cars.Add(new Car { Id = 2, Model = "B", maxSpeed = 200 });
+            context.Cars.Add(new Car { Id = 1, Model = "A", maxSpeed = 180, TenantId = TenantId });
+            context.Cars.Add(new Car { Id = 2, Model = "B", maxSpeed = 200, TenantId = TenantId });
             await context.SaveChangesAsync();
         }
 
         using (var context = new DotNetTrainingCoreContext(options))
         {
             var repo = new CarsRepository(context);
-            var count = await repo.GetCountAsync();
+            var count = await repo.GetCountAsync(TenantId);
             Assert.Equal(2, count);
         }
     }

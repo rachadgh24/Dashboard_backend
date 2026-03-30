@@ -25,11 +25,16 @@ namespace task1.Controllers
         [HttpGet("stats")]
         public async Task<IActionResult> GetStats()
         {
-            var isAdmin = User.IsInRole("Admin");
-            var totalUsers = isAdmin ? await _userService.GetCountAsync() : (int?)null;
-            var totalCars = await _carService.GetCountAsync();
-            var totalCustomers = await _customerService.GetCountAsync();
-            var topCustomer = await _customerService.GetCustomerWithMostCarsAsync();
+            var tenantIdClaim = User.FindFirst("tenant_id")?.Value;
+            if (!Guid.TryParse(tenantIdClaim, out var tenantId) || tenantId == Guid.Empty)
+            {
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+            }
+
+            var totalUsers = await _userService.GetCountAsync(tenantId);
+            var totalCars = await _carService.GetCountAsync(tenantId);
+            var totalCustomers = await _customerService.GetCountAsync(tenantId);
+            var topCustomer = await _customerService.GetCustomerWithMostCarsAsync(tenantId);
 
             return Ok(new ApiResponse<object>
             {

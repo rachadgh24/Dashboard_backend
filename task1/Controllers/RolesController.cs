@@ -1,9 +1,9 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using task1.Application.Interfaces;
 using task1.Models;
-using task1.DataLayer.Interfaces;
 
 namespace task1.Controllers
 {
@@ -13,13 +13,11 @@ namespace task1.Controllers
     public class RolesController : ControllerBase
     {
         private readonly IRolesAdminService _rolesService;
-        private readonly IRoleRepository _roleRepository;
         private readonly IMemoryCache _cache;
 
-        public RolesController(IRolesAdminService rolesService, IRoleRepository roleRepository, IMemoryCache cache)
+        public RolesController(IRolesAdminService rolesService, IMemoryCache cache)
         {
             _rolesService = rolesService;
-            _roleRepository = roleRepository;
             _cache = cache;
         }
 
@@ -27,7 +25,10 @@ namespace task1.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var roles = await _roleRepository.GetAllAsync();
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var roles = await _rolesService.GetAllAsync(tenantId);
             var data = roles.Select(r => new RoleDto { Id = r.Id, Name = r.Name }).ToList();
             return Ok(new ApiResponse<List<RoleDto>> { Data = data });
         }
@@ -38,10 +39,12 @@ namespace task1.Controllers
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Name))
                 return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Role name is required." } });
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
 
             try
             {
-                var id = await _rolesService.CreateRoleAsync(request.Name);
+                var id = await _rolesService.CreateRoleAsync(tenantId, request.Name);
                 return Ok(new ApiResponse<object> { Data = new { id } });
             }
             catch (InvalidOperationException ex)
@@ -60,14 +63,16 @@ namespace task1.Controllers
         {
             if (request == null)
                 return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
 
             try
             {
-                await _rolesService.SetRoleClaimsAsync(id, request.ClaimIds ?? new List<int>());
+                await _rolesService.SetRoleClaimsAsync(tenantId, id, request.ClaimIds ?? new List<int>());
 
-                var roleName = await _rolesService.GetRoleNameByIdAsync(id);
+                var roleName = await _rolesService.GetRoleNameByIdAsync(tenantId, id);
                 if (!string.IsNullOrWhiteSpace(roleName))
-                    _cache.Remove($"roleClaims:{roleName}");
+                    _cache.Remove($"roleClaims:{tenantId}:{roleName}");
 
                 return Ok(new ApiResponse<object> { Data = null });
             }
@@ -75,6 +80,12 @@ namespace task1.Controllers
             {
                 return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = ex.Message } });
             }
+        }
+
+        private bool TryGetTenantId(out Guid tenantId)
+        {
+            var tenantClaim = User.FindFirst("tenant_id")?.Value;
+            return Guid.TryParse(tenantClaim, out tenantId) && tenantId != Guid.Empty;
         }
     }
 }

@@ -8,13 +8,12 @@ namespace task1.Application.Services
 {
     public static class UserRoles
     {
-        public const string Admin = "Admin";
         public const string GeneralManager = "General Manager";
         public const string SocialMediaManager = "Social Media Manager";
 
-        public static readonly IReadOnlyList<string> All = new[] { Admin, GeneralManager, SocialMediaManager };
+        public static readonly IReadOnlyList<string> All = new[] { GeneralManager, SocialMediaManager };
 
-        /// <summary>Normalizes role (e.g. "roleAdmin" -> "Admin") so we always store and return display names.</summary>
+        /// <summary>Normalizes role names (e.g. "roleGeneralManager" -> "General Manager").</summary>
         public static string Normalize(string role)
         {
             if (string.IsNullOrWhiteSpace(role)) return role;
@@ -41,44 +40,44 @@ namespace task1.Application.Services
             _roleRepository = roleRepository;
         }
 
-        public async Task<List<UserModel>> GetAllAsync(string? role = null)
+        public async Task<List<UserModel>> GetAllAsync(Guid tenantId, string? role = null)
         {
             var normalizedRole = string.IsNullOrWhiteSpace(role) ? null : UserRoles.Normalize(role);
-            var users = await _userRepository.GetAllAsync(normalizedRole);
+            var users = await _userRepository.GetAllAsync(tenantId, normalizedRole);
             return users.Select(ToModel).ToList();
         }
 
-        public async Task<List<UserModel>> PaginateUsersAsync(int page, int pageSize, string? role = null)
+        public async Task<List<UserModel>> PaginateUsersAsync(Guid tenantId, int page, int pageSize, string? role = null)
         {
             var normalizedRole = string.IsNullOrWhiteSpace(role) ? null : UserRoles.Normalize(role);
             var p = PaginationQuery.NormalizePage(page);
             var ps = PaginationQuery.NormalizePageSize(pageSize);
-            var users = await _userRepository.PaginateUsersAsync(p, ps, normalizedRole);
+            var users = await _userRepository.PaginateUsersAsync(tenantId, p, ps, normalizedRole);
             return users.Select(ToModel).ToList();
         }
 
-        public async Task<int> GetCountAsync(string? role = null)
+        public async Task<int> GetCountAsync(Guid tenantId, string? role = null)
         {
             var normalizedRole = string.IsNullOrWhiteSpace(role) ? null : UserRoles.Normalize(role);
-            return await _userRepository.GetCountAsync(normalizedRole);
+            return await _userRepository.GetCountAsync(tenantId, normalizedRole);
         }
 
-        public async Task<UserModel?> GetByIdAsync(int id)
+        public async Task<UserModel?> GetByIdAsync(Guid tenantId, int id)
         {
-            var user = await _userRepository.GetByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(tenantId, id);
             if (user == null) return null;
             return ToModel(user);
         }
 
-        public async Task<UserModel> AddUserAsync(CreateUserModel model)
+        public async Task<UserModel> AddUserAsync(Guid tenantId, CreateUserModel model)
         {
             var roleName = UserRoles.Normalize(model.Role);
-            var role = await _roleRepository.GetByNameAsync(roleName);
+            var role = await _roleRepository.GetByNameAsync(roleName, tenantId);
             if (role == null)
                 throw new InvalidOperationException($"Role '{roleName}' not found in database.");
 
             var phoneNumber = model.PhoneNumber?.Trim() ?? string.Empty;
-            if (await _userRepository.GetByPhoneNumberAsync(phoneNumber) != null)
+            if (await _userRepository.GetByPhoneNumberAsync(tenantId, phoneNumber) != null)
                 throw new InvalidOperationException("A user with this phone number already exists.");
 
             var user = new User
@@ -86,7 +85,8 @@ namespace task1.Application.Services
                 Name = model.Name?.Trim() ?? string.Empty,
                 PhoneNumber = phoneNumber,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                RoleId = role.Id
+                RoleId = role.Id,
+                TenantId = tenantId
             };
 
             var added = await _userRepository.AddUserAsync(user);
@@ -94,44 +94,44 @@ namespace task1.Application.Services
             return ToModel(added);
         }
 
-        public async Task<bool> DeleteUserAsync(int id)
+        public async Task<bool> DeleteUserAsync(Guid tenantId, int id)
         {
-            var deleted = await _userRepository.DeleteUserAsync(id);
+            var deleted = await _userRepository.DeleteUserAsync(tenantId, id);
             if (!deleted) return false;
             await _userRepository.SaveChangesAsync();
             return true;
         }
 
-        public async Task<UserModel?> EditUserAsync(int id, UserModel model)
+        public async Task<UserModel?> EditUserAsync(Guid tenantId, int id, UserModel model)
         {
-            var entity = await _userRepository.GetByIdAsync(id);
+            var entity = await _userRepository.GetByIdAsync(tenantId, id);
             if (entity == null) return null;
 
             var newPhoneNumber = model.PhoneNumber?.Trim() ?? string.Empty;
-            var existingByPhone = await _userRepository.GetByPhoneNumberAsync(newPhoneNumber);
+            var existingByPhone = await _userRepository.GetByPhoneNumberAsync(tenantId, newPhoneNumber);
             if (existingByPhone != null && existingByPhone.Id != id)
                 throw new InvalidOperationException("A user with this phone number already exists.");
 
             entity.Name = model.Name?.Trim() ?? string.Empty;
             entity.PhoneNumber = newPhoneNumber;
-            var updated = await _userRepository.UpdateUserAsync(entity);
+            var updated = await _userRepository.UpdateUserAsync(tenantId, entity);
             if (updated == null) return null;
             await _userRepository.SaveChangesAsync();
             return ToModel(updated);
         }
 
-        public async Task<UserModel?> ChangeRoleAsync(int id, string role)
+        public async Task<UserModel?> ChangeRoleAsync(Guid tenantId, int id, string role)
         {
             var roleName = UserRoles.Normalize(role);
-            var roleEntity = await _roleRepository.GetByNameAsync(roleName);
+            var roleEntity = await _roleRepository.GetByNameAsync(roleName, tenantId);
             if (roleEntity == null)
                 throw new InvalidOperationException($"Role '{roleName}' not found in database.");
 
-            var entity = await _userRepository.GetByIdAsync(id);
+            var entity = await _userRepository.GetByIdAsync(tenantId, id);
             if (entity == null) return null;
 
             entity.RoleId = roleEntity.Id;
-            var updated = await _userRepository.UpdateUserAsync(entity);
+            var updated = await _userRepository.UpdateUserAsync(tenantId, entity);
             if (updated == null) return null;
             await _userRepository.SaveChangesAsync();
             return ToModel(updated);

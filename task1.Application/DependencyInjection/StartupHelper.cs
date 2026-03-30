@@ -8,10 +8,14 @@ namespace task1.Application.DependencyInjection
 {
     public static class StartupHelper
     {
-        public static void AddApplicationLayerServices(this IServiceCollection services, IConfiguration configuration)
+        public static void AddApplicationInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDotNetTrainingCoreContext(configuration);
             services.AddDataLayerRepositories();
+        }
+
+        public static void AddApplicationLayerServices(this IServiceCollection services)
+        {
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<IUserService, UserService>();
@@ -19,6 +23,7 @@ namespace task1.Application.DependencyInjection
             services.AddScoped<IRoleClaimsService, RoleClaimsService>();
             services.AddScoped<IClaimsAdminService, ClaimsAdminService>();
             services.AddScoped<IRolesAdminService, RolesAdminService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

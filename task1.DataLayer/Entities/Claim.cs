@@ -10,5 +10,6 @@ namespace task1.DataLayer.Entities
         public string Category { get; set; } = string.Empty;
 
         public ICollection<RoleClaim> RoleClaims { get; set; } = new List<RoleClaim>();
+        
     }
 }

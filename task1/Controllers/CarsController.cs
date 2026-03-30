@@ -26,14 +26,20 @@ namespace task1.Controllers{
     [HttpGet]
     public async Task<IActionResult> GetCars()
     {
-        var cars = await _carService.GetAllAsync();
+        if (!TryGetTenantId(out var tenantId))
+            return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+        var cars = await _carService.GetAllAsync(tenantId);
         return Ok(new ApiResponse<List<CarModel>> { Data = cars });
     }
     [Authorize(Policy = "ViewCar")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCar(int id)
     {
-        var car = await _carService.GetByIdAsync(id);
+        if (!TryGetTenantId(out var tenantId))
+            return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+        var car = await _carService.GetByIdAsync(tenantId, id);
         if (car == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Car not found." } });
         return Ok(new ApiResponse<CarModel> { Data = car });
     }
@@ -42,13 +48,16 @@ namespace task1.Controllers{
     public async Task<IActionResult> AddCar([FromBody] CarModel? carModel)
     {
         if (carModel == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
-        var addedCar = await _carService.AddCarAsync(carModel);
+        if (!TryGetTenantId(out var tenantId))
+            return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+        var addedCar = await _carService.AddCarAsync(tenantId, carModel);
         var role = User.FindFirst("role")?.Value ?? string.Empty;
         if (role == UserRoles.GeneralManager || role == UserRoles.SocialMediaManager)
         {
             var name = ActionNotificationHelper.GetDisplayName(User);
             var message = ActionNotificationHelper.Format(role, name, "added a car");
-            await _notificationService.RecordAsync(message);
+            await _notificationService.RecordAsync(message, tenantId);
             return Ok(new ApiResponse<object> { Data = new { car = addedCar, message } });
         }
         return Ok(new ApiResponse<CarModel> { Data = addedCar });
@@ -58,7 +67,10 @@ namespace task1.Controllers{
     public async Task<IActionResult> UpdateCar(int id, [FromBody] CarModel? carModel)
     {
         if (carModel == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
-        var updatedCar = await _carService.UpdateCarAsync(id, carModel);
+        if (!TryGetTenantId(out var tenantId))
+            return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+        var updatedCar = await _carService.UpdateCarAsync(tenantId, id, carModel);
         if (updatedCar == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Car not found." } });
         return Ok(new ApiResponse<CarModel> { Data = updatedCar });
     }
@@ -66,7 +78,10 @@ namespace task1.Controllers{
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCar(int id)
     {
-        if (!await _carService.DeleteCarAsync(id)) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Car not found." } });
+        if (!TryGetTenantId(out var tenantId))
+            return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+        if (!await _carService.DeleteCarAsync(tenantId, id)) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Car not found." } });
         return Ok(new ApiResponse<object> { Data = null });
     }
 
@@ -74,7 +89,10 @@ namespace task1.Controllers{
     [HttpGet("paginate")]
     public async Task<IActionResult> PaginateCars([FromQuery] int page = 1, [FromQuery] int pageSize = 4)
     {
-        var cars = await _carService.PaginateCarsAsync(page, pageSize);
+        if (!TryGetTenantId(out var tenantId))
+            return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+        var cars = await _carService.PaginateCarsAsync(tenantId, page, pageSize);
         return Ok(new ApiResponse<List<CarModel>> { Data = cars });
     }
 
@@ -82,8 +100,17 @@ namespace task1.Controllers{
     [HttpGet("count")]
     public async Task<IActionResult> GetCarsCount()
     {
-        var count = await _carService.GetCountAsync();
+        if (!TryGetTenantId(out var tenantId))
+            return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+        var count = await _carService.GetCountAsync(tenantId);
         return Ok(new ApiResponse<int> { Data = count });
+    }
+
+    private bool TryGetTenantId(out Guid tenantId)
+    {
+        var tenantClaim = User.FindFirst("tenant_id")?.Value;
+        return Guid.TryParse(tenantClaim, out tenantId) && tenantId != Guid.Empty;
     }
 }
 }

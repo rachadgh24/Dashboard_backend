@@ -16,9 +16,9 @@ namespace task1.Application.Services
             _customerRepository = customerRepository;
         }
 
-        public async Task<List<CustomerModel>> GetAllAsync()
+        public async Task<List<CustomerModel>> GetAllAsync(Guid tenantId)
         {
-            var customers = await _customerRepository.GetAll().ToListAsync();
+            var customers = await _customerRepository.GetAll(tenantId).ToListAsync();
             return customers.Select(c => new CustomerModel
             {
                 Email = c.Email,
@@ -29,9 +29,9 @@ namespace task1.Application.Services
             }).ToList();
         }
 
-        public async Task<CustomerModel?> GetByIdAsync(int id)
+        public async Task<CustomerModel?> GetByIdAsync(Guid tenantId, int id)
         {
-            var customer = await _customerRepository.GetById(id).FirstOrDefaultAsync();
+            var customer = await _customerRepository.GetById(tenantId, id).FirstOrDefaultAsync();
             if (customer == null) return null;
 
             return new CustomerModel
@@ -44,14 +44,15 @@ namespace task1.Application.Services
             };
         }
 
-        public async Task<CustomerModel> AddCustomerAsync(CustomerModel customerModel)
+        public async Task<CustomerModel> AddCustomerAsync(Guid tenantId, CustomerModel customerModel)
         {
             var customer = new Customer
             {
                 Email = customerModel.Email ?? string.Empty,
                 Name = customerModel.Name ?? string.Empty,
                 LastName = customerModel.LastName ?? string.Empty,
-                City = customerModel.City ?? string.Empty
+                City = customerModel.City ?? string.Empty,
+                TenantId = tenantId
             };
 
             var addedEntity = await _customerRepository.AddCustomerAsync(customer);
@@ -67,7 +68,7 @@ namespace task1.Application.Services
             };
         }
 
-        public async Task<CustomerModel?> UpdateCustomerAsync(int id, CustomerModel customerModel)
+        public async Task<CustomerModel?> UpdateCustomerAsync(Guid tenantId, int id, CustomerModel customerModel)
         {
             var customer = new Customer
             {
@@ -77,7 +78,7 @@ namespace task1.Application.Services
                 Email = customerModel.Email ?? string.Empty
             };
 
-            var updatedEntity = await _customerRepository.UpdateCustomer(id, customer);
+            var updatedEntity = await _customerRepository.UpdateCustomer(tenantId, id, customer);
             if (updatedEntity == null) return null;
 
             await _customerRepository.SaveChangesAsync();
@@ -91,18 +92,18 @@ namespace task1.Application.Services
             };
         }
 
-        public async Task<bool> DeleteCustomerAsync(int id)
+        public async Task<bool> DeleteCustomerAsync(Guid tenantId, int id)
         {
-            var deleted = await _customerRepository.DeleteCustomer(id);
+            var deleted = await _customerRepository.DeleteCustomer(tenantId, id);
             if (!deleted) return false;
 
             await _customerRepository.SaveChangesAsync();
             return true;
         }
 
-        public async Task<List<CustomerModel>> Search(string? query)
+        public async Task<List<CustomerModel>> Search(Guid tenantId, string? query)
         {
-            var customers = await _customerRepository.Search(query);
+            var customers = await _customerRepository.Search(tenantId, query);
             return customers.Select(c => new CustomerModel
             {
                 Id = c.Id,
@@ -120,11 +121,11 @@ namespace task1.Application.Services
             }).ToList();
         }
 
-        public async Task<List<CustomerModel>> PaginateCustomersAsync(int page, int pageSize, string? sortBy)
+        public async Task<List<CustomerModel>> PaginateCustomersAsync(Guid tenantId, int page, int pageSize, string? sortBy)
         {
             var p = PaginationQuery.NormalizePage(page);
             var ps = PaginationQuery.NormalizePageSize(pageSize);
-            var customers = await _customerRepository.PaginateCustomers(p, ps, sortBy);
+            var customers = await _customerRepository.PaginateCustomers(tenantId, p, ps, sortBy);
             return customers.Select(c => new CustomerModel
             {
                 Id = c.Id,
@@ -142,11 +143,11 @@ namespace task1.Application.Services
             }).ToList();
         }
 
-        public async Task<int> GetCountAsync() => await _customerRepository.GetCountAsync();
+        public async Task<int> GetCountAsync(Guid tenantId) => await _customerRepository.GetCountAsync(tenantId);
 
-        public async Task<(string Name, int CarCount, List<CarModel> Cars)?> GetCustomerWithMostCarsAsync()
+        public async Task<(string Name, int CarCount, List<CarModel> Cars)?> GetCustomerWithMostCarsAsync(Guid tenantId)
         {
-            var result = await _customerRepository.GetCustomerWithMostCarsAsync();
+            var result = await _customerRepository.GetCustomerWithMostCarsAsync(tenantId);
             if (result == null) return null;
             var name = $"{result.Value.Customer.Name} {result.Value.Customer.LastName}".Trim();
             if (string.IsNullOrEmpty(name)) name = result.Value.Customer.Email;

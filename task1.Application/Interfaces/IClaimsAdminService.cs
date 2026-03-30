@@ -1,10 +1,10 @@
-using task1.DataLayer.Entities;
+using task1.Application.Models;
 
 namespace task1.Application.Interfaces
 {
     public interface IClaimsAdminService
     {
-        Task<List<Claim>> GetAllAsync();
+        Task<List<AdminClaimModel>> GetAllAsync();
     }
 }
 

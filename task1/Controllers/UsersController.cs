@@ -27,7 +27,10 @@ namespace task1.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery] string? role = null)
         {
-            var users = await _userService.GetAllAsync(role);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var users = await _userService.GetAllAsync(tenantId, role);
             return Ok(new ApiResponse<List<UserModel>> { Data = users });
         }
 
@@ -35,7 +38,10 @@ namespace task1.Controllers
         [HttpGet("paginate")]
         public async Task<IActionResult> PaginateUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 4, [FromQuery] string? role = null)
         {
-            var users = await _userService.PaginateUsersAsync(page, pageSize, role);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var users = await _userService.PaginateUsersAsync(tenantId, page, pageSize, role);
             return Ok(new ApiResponse<List<UserModel>> { Data = users });
         }
 
@@ -43,7 +49,10 @@ namespace task1.Controllers
         [HttpGet("count")]
         public async Task<IActionResult> GetUsersCount([FromQuery] string? role = null)
         {
-            var count = await _userService.GetCountAsync(role);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var count = await _userService.GetCountAsync(tenantId, role);
             return Ok(new ApiResponse<int> { Data = count });
         }
 
@@ -51,7 +60,10 @@ namespace task1.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await _userService.GetByIdAsync(id);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var user = await _userService.GetByIdAsync(tenantId, id);
             if (user == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
             return Ok(new ApiResponse<UserModel> { Data = user });
         }
@@ -63,11 +75,13 @@ namespace task1.Controllers
             if (model == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
             if (string.IsNullOrWhiteSpace(model.PhoneNumber) || string.IsNullOrWhiteSpace(model.Password))
                 return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Phone number and password are required." } });
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
 
             try
             {
-                var user = await _userService.AddUserAsync(model);
-                var role = User.FindFirst("role")?.Value ?? "Admin";
+                var user = await _userService.AddUserAsync(tenantId, model);
+                var role = User.FindFirst("role")?.Value ?? "User";
                 var name = ActionNotificationHelper.GetDisplayName(User);
                 var message = ActionNotificationHelper.Format(role, name, "added a user");
                 return Ok(new ApiResponse<object> { Data = new { user, message } });
@@ -86,7 +100,10 @@ namespace task1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            if (!await _userService.DeleteUserAsync(id)) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            if (!await _userService.DeleteUserAsync(tenantId, id)) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
             return Ok(new ApiResponse<object> { Data = null });
         }
 
@@ -95,9 +112,12 @@ namespace task1.Controllers
         public async Task<IActionResult> EditUser(int id, [FromBody] UserModel? model)
         {
             if (model == null) return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Request body is required." } });
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
             try
             {
-                var updated = await _userService.EditUserAsync(id, model);
+                var updated = await _userService.EditUserAsync(tenantId, id, model);
                 if (updated == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
                 return Ok(new ApiResponse<UserModel> { Data = updated });
             }
@@ -113,11 +133,14 @@ namespace task1.Controllers
         {
             if (request == null || string.IsNullOrWhiteSpace(request.Role))
                 return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = "Role is required." } });
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
             var normalizedRole = UserRoles.Normalize(request.Role);
 
             try
             {
-                var updated = await _userService.ChangeRoleAsync(id, normalizedRole);
+                var updated = await _userService.ChangeRoleAsync(tenantId, id, normalizedRole);
                 if (updated == null) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "User not found." } });
                 return Ok(new ApiResponse<UserModel> { Data = updated });
             }
@@ -129,6 +152,12 @@ namespace task1.Controllers
             {
                 return BadRequest(new ApiResponse<object> { Error = new ApiError { Code = "VALIDATION_ERROR", Message = ex.Message } });
             }
+        }
+
+        private bool TryGetTenantId(out Guid tenantId)
+        {
+            var tenantClaim = User.FindFirst("tenant_id")?.Value;
+            return Guid.TryParse(tenantClaim, out tenantId) && tenantId != Guid.Empty;
         }
     }
 

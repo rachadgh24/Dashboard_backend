@@ -1,5 +1,5 @@
 using task1.Application.Interfaces;
-using task1.DataLayer.Entities;
+using task1.Application.Models;
 using task1.DataLayer.Interfaces;
 
 namespace task1.Application.Services
@@ -13,9 +13,15 @@ namespace task1.Application.Services
             _roleRepository = roleRepository;
         }
 
-        public async Task<List<Claim>> GetAllAsync()
+        public async Task<List<AdminClaimModel>> GetAllAsync()
         {
-            return await _roleRepository.GetAllClaimsAsync();
+            var claims = await _roleRepository.GetAllClaimsAsync();
+            return claims.Select(c => new AdminClaimModel
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Category = c.Category
+            }).ToList();
         }
     }
 }

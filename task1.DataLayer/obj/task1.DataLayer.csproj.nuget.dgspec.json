@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj": {}
+    "c:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj": {
+    "c:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj",
+        "projectUniqueName": "c:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj",
         "projectName": "task1.DataLayer",
-        "projectPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj",
+        "projectPath": "c:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\task1.DataLayer.csproj",
         "packagesPath": "C:\\Users\\LENOVO.CC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\obj\\",
+        "outputPath": "c:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

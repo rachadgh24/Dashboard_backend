@@ -15,6 +15,7 @@ namespace task1.DataLayer.Entities
 
         public int? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
-
+    public Guid TenantId { get; set; }       
+    public Tenant Tenant { get; set; } = null!;
     }
 }

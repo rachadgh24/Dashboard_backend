@@ -16,9 +16,9 @@ namespace task1.Application.Services
             _carsRepository = carsRepository;
         }
 
-        public async Task<List<CarModel>> GetAllAsync()
+        public async Task<List<CarModel>> GetAllAsync(Guid tenantId)
         {
-            var cars = await _carsRepository.GetAll().ToListAsync();
+            var cars = await _carsRepository.GetAll(tenantId).ToListAsync();
             return cars.Select(c => new CarModel
             {
                 Id = c.Id,
@@ -28,9 +28,9 @@ namespace task1.Application.Services
             }).ToList();
         }
 
-        public async Task<CarModel?> GetByIdAsync(int id)
+        public async Task<CarModel?> GetByIdAsync(Guid tenantId, int id)
         {
-            var car = await _carsRepository.GetById(id).FirstOrDefaultAsync();
+            var car = await _carsRepository.GetById(tenantId, id).FirstOrDefaultAsync();
             if (car == null) return null;
             return new CarModel
             {
@@ -41,13 +41,14 @@ namespace task1.Application.Services
             };
         }
 
-        public async Task<CarModel> AddCarAsync(CarModel carModel)
+        public async Task<CarModel> AddCarAsync(Guid tenantId, CarModel carModel)
         {
             var car = new Car
             {
                 Model = carModel.Model,
                 maxSpeed = carModel.maxSpeed,
-                CustomerId = carModel.CustomerId
+                CustomerId = carModel.CustomerId,
+                TenantId = tenantId
             };
             var addedCar = await _carsRepository.AddCarAsync(car);
             await _carsRepository.SaveChangesAsync();
@@ -60,14 +61,14 @@ namespace task1.Application.Services
             };
         }
 
-        public async Task<CarModel?> UpdateCarAsync(int id, CarModel carModel)
+        public async Task<CarModel?> UpdateCarAsync(Guid tenantId, int id, CarModel carModel)
         {
-            var car = await _carsRepository.GetById(id).FirstOrDefaultAsync();
+            var car = await _carsRepository.GetById(tenantId, id).FirstOrDefaultAsync();
             if (car == null) return null;
             car.Model = carModel.Model;
             car.maxSpeed = carModel.maxSpeed;
             car.CustomerId = carModel.CustomerId;
-            var updatedCar = await _carsRepository.UpdateCar(id, car);
+            var updatedCar = await _carsRepository.UpdateCar(tenantId, id, car);
             if (updatedCar == null) return null;
             await _carsRepository.SaveChangesAsync();
             return new CarModel
@@ -79,19 +80,19 @@ namespace task1.Application.Services
             };
         }
 
-        public async Task<bool> DeleteCarAsync(int id)
+        public async Task<bool> DeleteCarAsync(Guid tenantId, int id)
         {
-            var deleted = await _carsRepository.DeleteCar(id);
+            var deleted = await _carsRepository.DeleteCar(tenantId, id);
             if (!deleted) return false;
             await _carsRepository.SaveChangesAsync();
             return true;
         }
 
-        public async Task<List<CarModel>> PaginateCarsAsync(int page, int pageSize)
+        public async Task<List<CarModel>> PaginateCarsAsync(Guid tenantId, int page, int pageSize)
         {
             var p = PaginationQuery.NormalizePage(page);
             var ps = PaginationQuery.NormalizePageSize(pageSize);
-            var cars = await _carsRepository.PaginateCars(p, ps);
+            var cars = await _carsRepository.PaginateCars(tenantId, p, ps);
             return cars.Select(c => new CarModel
             {
                 Id = c.Id,
@@ -101,6 +102,6 @@ namespace task1.Application.Services
             }).ToList();
         }
 
-        public async Task<int> GetCountAsync() => await _carsRepository.GetCountAsync();
+        public async Task<int> GetCountAsync(Guid tenantId) => await _carsRepository.GetCountAsync(tenantId);
     }
 }

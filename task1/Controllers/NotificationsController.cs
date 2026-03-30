@@ -23,7 +23,10 @@ namespace task1.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNotifications()
         {
-            var notifications = await _notificationService.GetAllAsync();
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var notifications = await _notificationService.GetAllAsync(tenantId);
             return Ok(new ApiResponse<List<NotificationModel>> { Data = notifications });
         }
 
@@ -32,7 +35,10 @@ namespace task1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNotification(int id)
         {
-            var deleted = await _notificationService.DeleteAsync(id);
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            var deleted = await _notificationService.DeleteAsync(tenantId, id);
             if (!deleted) return NotFound(new ApiResponse<object> { Error = new ApiError { Code = "NOT_FOUND", Message = "Notification not found." } });
             return Ok(new ApiResponse<object> { Data = null });
         }
@@ -42,8 +48,17 @@ namespace task1.Controllers
         [HttpDelete]
         public async Task<IActionResult> ClearNotifications()
         {
-            await _notificationService.ClearAsync();
+            if (!TryGetTenantId(out var tenantId))
+                return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Tenant context missing from token." } });
+
+            await _notificationService.ClearAsync(tenantId);
             return Ok(new ApiResponse<object> { Data = null });
+        }
+
+        private bool TryGetTenantId(out Guid tenantId)
+        {
+            var tenantClaim = User.FindFirst("tenant_id")?.Value;
+            return Guid.TryParse(tenantClaim, out tenantId) && tenantId != Guid.Empty;
         }
     }
 }

@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\task1.Application\task1.Application.csproj" />
-    <ProjectReference Include="..\task1.DataLayer\task1.DataLayer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,17 +14,17 @@ namespace task1.DataLayer.Repositories
             _context = context;
         }
 
-        public async Task<List<User>> GetAllAsync(string? role = null)
+        public async Task<List<User>> GetAllAsync(Guid tenantId, string? role = null)
         {
-            IQueryable<User> query = _context.Users.AsNoTracking().Include(u => u.Role);
+            IQueryable<User> query = _context.Users.AsNoTracking().Include(u => u.Role).Where(u => u.TenantId == tenantId);
             if (!string.IsNullOrWhiteSpace(role))
                 query = query.Where(u => u.Role.Name == role);
             return await query.OrderBy(u => u.Id).ToListAsync();
         }
 
-        public async Task<List<User>> PaginateUsersAsync(int page, int pageSize, string? role = null)
+        public async Task<List<User>> PaginateUsersAsync(Guid tenantId, int page, int pageSize, string? role = null)
         {
-            IQueryable<User> query = _context.Users.AsNoTracking().Include(u => u.Role);
+            IQueryable<User> query = _context.Users.AsNoTracking().Include(u => u.Role).Where(u => u.TenantId == tenantId);
             if (!string.IsNullOrWhiteSpace(role))
                 query = query.Where(u => u.Role.Name == role);
             return await query
@@ -34,9 +34,9 @@ namespace task1.DataLayer.Repositories
                 .ToListAsync();
         }
 
-        public async Task<int> GetCountAsync(string? role = null)
+        public async Task<int> GetCountAsync(Guid tenantId, string? role = null)
         {
-            IQueryable<User> query = _context.Users;
+            IQueryable<User> query = _context.Users.Where(u => u.TenantId == tenantId);
             if (!string.IsNullOrWhiteSpace(role))
                 query = query.Where(u => u.Role.Name == role);
             return await query.CountAsync();
@@ -49,11 +49,18 @@ namespace task1.DataLayer.Repositories
                 .FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
         }
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetByPhoneNumberAsync(Guid tenantId, string phoneNumber)
         {
             return await _context.Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(u => u.TenantId == tenantId && u.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<User?> GetByIdAsync(Guid tenantId, int id)
+        {
+            return await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.TenantId == tenantId && u.Id == id);
         }
 
         public Task<User> AddUserAsync(User user)
@@ -62,9 +69,9 @@ namespace task1.DataLayer.Repositories
             return Task.FromResult(entity.Entity);
         }
 
-        public async Task<User?> UpdateUserAsync(User user)
+        public async Task<User?> UpdateUserAsync(Guid tenantId, User user)
         {
-            var entity = await _context.Users.FindAsync(user.Id);
+            var entity = await _context.Users.FirstOrDefaultAsync(u => u.TenantId == tenantId && u.Id == user.Id);
             if (entity == null) return null;
 
             entity.Name = user.Name;
@@ -75,9 +82,9 @@ namespace task1.DataLayer.Repositories
             return entity;
         }
 
-        public async Task<bool> DeleteUserAsync(int id)
+        public async Task<bool> DeleteUserAsync(Guid tenantId, int id)
         {
-            var entity = await _context.Users.FindAsync(id);
+            var entity = await _context.Users.FirstOrDefaultAsync(u => u.TenantId == tenantId && u.Id == id);
             if (entity == null) return false;
 
             _context.Users.Remove(entity);

@@ -37,12 +37,17 @@ namespace task1.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("maxSpeed")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Cars");
                 });
@@ -92,7 +97,12 @@ namespace task1.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Customers");
                 });
@@ -112,7 +122,12 @@ namespace task1.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Notifications");
                 });
@@ -129,7 +144,12 @@ namespace task1.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Roles");
                 });
@@ -147,6 +167,30 @@ namespace task1.DataLayer.Migrations
                     b.HasIndex("ClaimId");
 
                     b.ToTable("RoleClaims");
+                });
+
+            modelBuilder.Entity("task1.DataLayer.Entities.Tenant", b =>
+                {
+                    b.Property<Guid>("TenantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("TenantId");
+
+                    b.ToTable("Tenants");
                 });
 
             modelBuilder.Entity("task1.DataLayer.Entities.User", b =>
@@ -172,9 +216,14 @@ namespace task1.DataLayer.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Users");
                 });
@@ -185,7 +234,48 @@ namespace task1.DataLayer.Migrations
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
+                    b.HasOne("task1.DataLayer.Entities.Tenant", "Tenant")
+                        .WithMany("Cars")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("task1.DataLayer.Entities.Customer", b =>
+                {
+                    b.HasOne("task1.DataLayer.Entities.Tenant", "Tenant")
+                        .WithMany("Customers")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("task1.DataLayer.Entities.Notification", b =>
+                {
+                    b.HasOne("task1.DataLayer.Entities.Tenant", "Tenant")
+                        .WithMany("Notifications")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("task1.DataLayer.Entities.Role", b =>
+                {
+                    b.HasOne("task1.DataLayer.Entities.Tenant", "Tenant")
+                        .WithMany("Roles")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("task1.DataLayer.Entities.RoleClaim", b =>
@@ -215,7 +305,15 @@ namespace task1.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("task1.DataLayer.Entities.Tenant", "Tenant")
+                        .WithMany("Users")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Role");
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("task1.DataLayer.Entities.Claim", b =>
@@ -226,6 +324,19 @@ namespace task1.DataLayer.Migrations
             modelBuilder.Entity("task1.DataLayer.Entities.Role", b =>
                 {
                     b.Navigation("RoleClaims");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("task1.DataLayer.Entities.Tenant", b =>
+                {
+                    b.Navigation("Cars");
+
+                    b.Navigation("Customers");
+
+                    b.Navigation("Notifications");
+
+                    b.Navigation("Roles");
 
                     b.Navigation("Users");
                 });

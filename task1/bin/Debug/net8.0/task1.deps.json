@@ -14,8 +14,7 @@
           "Microsoft.EntityFrameworkCore.Design": "8.0.24",
           "Swashbuckle.AspNetCore": "6.6.2",
           "System.IdentityModel.Tokens.Jwt": "8.16.0",
-          "task1.Application": "1.0.0",
-          "task1.DataLayer": "1.0.0"
+          "task1.Application": "1.0.0"
         },
         "runtime": {
           "task1.dll": {}

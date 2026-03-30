@@ -3,6 +3,92 @@
   "WorkspaceRootPath": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\infrastructure\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:infrastructure\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\infrastructure\\actionnotificationhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:infrastructure\\actionnotificationhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\hubs\\notificationshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:hubs\\notificationshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\claimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\claimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\carscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\carscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\authorization\\permissionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:authorization\\permissionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\authorization\\permissionrequirement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:authorization\\permissionrequirement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{709C02FC-60AD-4E88-B75A-2F3A430DCFC1}|..\\task1.DataLayer\\task1.DataLayer.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.datalayer\\repositories\\tenantrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{709C02FC-60AD-4E88-B75A-2F3A430DCFC1}|..\\task1.DataLayer\\task1.DataLayer.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.datalayer\\migrations\\20260309091530_renameuserstocustomers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{709C02FC-60AD-4E88-B75A-2F3A430DCFC1}|..\\task1.DataLayer\\task1.DataLayer.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.datalayer\\entities\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{709C02FC-60AD-4E88-B75A-2F3A430DCFC1}|..\\task1.DataLayer\\task1.DataLayer.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.datalayer\\entities\\tenant.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330100907_TenantID.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330070706_SaaS1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330065730_SaaS.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{709C02FC-60AD-4E88-B75A-2F3A430DCFC1}|..\\task1.DataLayer\\task1.DataLayer.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.datalayer\\entities\\car.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330064340_SaaS.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
@@ -15,24 +101,10 @@
       "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:.dockerignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C4D41B4A-30AD-4FD3-B63B-7745979235A5}|..\\task1.Application\\task1.Application.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.application\\models\\notificationeventmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C4D41B4A-30AD-4FD3-B63B-7745979235A5}|..\\task1.Application\\task1.Application.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.application\\services\\notificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\hubs\\notificationshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:hubs\\notificationshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{709C02FC-60AD-4E88-B75A-2F3A430DCFC1}|..\\task1.DataLayer\\task1.DataLayer.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1.datalayer\\dependencyinjection\\startuphelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LENOVO.CC\\Microsoft.Common.CurrentVersion.targets1||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
@@ -92,32 +164,16 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Migrations\\20260304124855_InitialMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\controllers\\carscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:controllers\\carscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|c:\\users\\lenovo.cc\\source\\repos\\dashboard\\backend1\\task1\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{DEF906B4-94D1-419A-A69F-11B1AB6B8845}|task1.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Services\\JwtService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\JwtService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -127,23 +183,128 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "NotificationService.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\Services\\NotificationService.cs",
-              "RelativeDocumentMoniker": "..\\task1.Application\\Services\\NotificationService.cs",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\Services\\NotificationService.cs",
-              "RelativeToolTip": "..\\task1.Application\\Services\\NotificationService.cs",
+              "DocumentIndex": 1,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Infrastructure\\JwtService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\JwtService.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Infrastructure\\JwtService.cs",
+              "RelativeToolTip": "Infrastructure\\JwtService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:22.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ActionNotificationHelper.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Infrastructure\\ActionNotificationHelper.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\ActionNotificationHelper.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Infrastructure\\ActionNotificationHelper.cs",
+              "RelativeToolTip": "Infrastructure\\ActionNotificationHelper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T06:05:42.054Z"
+              "WhenOpened": "2026-03-30T11:06:20.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:09.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RolesController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\RolesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RolesController.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\RolesController.cs",
+              "RelativeToolTip": "Controllers\\RolesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:08.552Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:07.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CustomersController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\CustomersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CustomersController.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\CustomersController.cs",
+              "RelativeToolTip": "Controllers\\CustomersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:06.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAN0TAAAAAAAAAAAcwOQTAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2026-03-11T13:00:20.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ClaimsController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\ClaimsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClaimsController.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\ClaimsController.cs",
+              "RelativeToolTip": "Controllers\\ClaimsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:05.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PermissionHandler.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Authorization\\PermissionHandler.cs",
+              "RelativeDocumentMoniker": "Authorization\\PermissionHandler.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Authorization\\PermissionHandler.cs",
+              "RelativeToolTip": "Authorization\\PermissionHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:01.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "NotificationsHub.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Hubs\\NotificationsHub.cs",
               "RelativeDocumentMoniker": "Hubs\\NotificationsHub.cs",
@@ -151,11 +312,168 @@
               "RelativeToolTip": "Hubs\\NotificationsHub.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T06:05:27.511Z"
+              "WhenOpened": "2026-03-25T06:05:27.511Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
+              "Title": "PermissionRequirement.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Authorization\\PermissionRequirement.cs",
+              "RelativeDocumentMoniker": "Authorization\\PermissionRequirement.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Authorization\\PermissionRequirement.cs",
+              "RelativeToolTip": "Authorization\\PermissionRequirement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:06:00.672Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "TenantRepository.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Repositories\\TenantRepository.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Repositories\\TenantRepository.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Repositories\\TenantRepository.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Repositories\\TenantRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:05:47.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20260309091530_RenameUsersToCustomers.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260309091530_RenameUsersToCustomers.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Migrations\\20260309091530_RenameUsersToCustomers.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260309091530_RenameUsersToCustomers.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Migrations\\20260309091530_RenameUsersToCustomers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:05:44.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Entities\\Notification.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Entities\\Notification.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Entities\\Notification.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Entities\\Notification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:05:41.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAYwDcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-06T13:53:06.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CarsController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\CarsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CarsController.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\CarsController.cs",
+              "RelativeToolTip": "Controllers\\CarsController.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwCwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T11:49:14.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Tenant.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Entities\\Tenant.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Entities\\Tenant.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Entities\\Tenant.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Entities\\Tenant.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T11:05:34.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "20260330100907_TenantID.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330100907_TenantID.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Migrations\\20260330100907_TenantID.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330100907_TenantID.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Migrations\\20260330100907_TenantID.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T10:09:07.391Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "20260330070706_SaaS1.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330070706_SaaS1.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Migrations\\20260330070706_SaaS1.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330070706_SaaS1.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Migrations\\20260330070706_SaaS1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T07:07:06.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "20260330065730_SaaS.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330065730_SaaS.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Migrations\\20260330065730_SaaS.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330065730_SaaS.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Migrations\\20260330065730_SaaS.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T06:57:30.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Car.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Entities\\Car.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Entities\\Car.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Entities\\Car.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Entities\\Car.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T06:57:12.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "20260330064340_SaaS.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330064340_SaaS.cs",
+              "RelativeDocumentMoniker": "..\\task1.DataLayer\\Migrations\\20260330064340_SaaS.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\Migrations\\20260330064340_SaaS.cs",
+              "RelativeToolTip": "..\\task1.DataLayer\\Migrations\\20260330064340_SaaS.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T06:43:40.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
               "Title": "StartupHelper.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.DataLayer\\DependencyInjection\\StartupHelper.cs",
               "RelativeDocumentMoniker": "..\\task1.DataLayer\\DependencyInjection\\StartupHelper.cs",
@@ -167,7 +485,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 25,
               "Title": "task1.csproj",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\task1.csproj",
               "RelativeDocumentMoniker": "task1.csproj",
@@ -180,32 +498,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 24,
               "Title": "Dockerfile",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Dockerfile",
               "RelativeDocumentMoniker": "Dockerfile",
               "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Dockerfile",
               "RelativeToolTip": "Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBEAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-03-25T12:23:58.026Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-25T12:23:58.026Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "NotificationEventModel.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\Models\\NotificationEventModel.cs",
-              "RelativeDocumentMoniker": "..\\task1.Application\\Models\\NotificationEventModel.cs",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\Models\\NotificationEventModel.cs",
-              "RelativeToolTip": "..\\task1.Application\\Models\\NotificationEventModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 23,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAwwGkAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-25T06:05:42.189Z"
+              "WhenOpened": "2026-03-04T12:53:14.983Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 26,
               "Title": ".dockerignore",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\.dockerignore",
               "RelativeDocumentMoniker": ".dockerignore",
@@ -217,7 +534,44 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 50,
+              "Title": "JwtService.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Services\\JwtService.cs",
+              "RelativeDocumentMoniker": "Services\\JwtService.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Services\\JwtService.cs",
+              "RelativeToolTip": "Services\\JwtService.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAowCoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-06T13:49:15.024Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "NotificationService.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\Services\\NotificationService.cs",
+              "RelativeDocumentMoniker": "..\\task1.Application\\Services\\NotificationService.cs",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1.Application\\Services\\NotificationService.cs",
+              "RelativeToolTip": "..\\task1.Application\\Services\\NotificationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T06:05:42.054Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-03T10:25:45.763Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
               "Title": "20260312103510_NotMigration.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Migrations\\20260312103510_NotMigration.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Migrations\\20260312103510_NotMigration.cs",
@@ -228,19 +582,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Microsoft.Common.CurrentVersion.targets",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
-              "ViewState": "AgIAAKkUAAAAAAAAAAAUwAsVAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2026-03-11T13:00:20.011Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 29,
               "Title": "Microsoft.Common.CurrentVersion.targets1",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\Microsoft.Common.CurrentVersion.targets1",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Microsoft.Common.CurrentVersion.targets1",
@@ -252,7 +594,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 31,
               "Title": "CarsRepositoryTests.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer.Tests\\CarsRepositoryTests.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer.Tests\\CarsRepositoryTests.cs",
@@ -263,7 +605,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 32,
               "Title": "CustomerService.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.Application\\Services\\CustomerService.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.Application\\Services\\CustomerService.cs",
@@ -274,7 +616,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 33,
               "Title": "CustomerRepository.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Repositories\\CustomerRepository.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Repositories\\CustomerRepository.cs",
@@ -285,19 +627,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAwwGcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-04T12:53:14.983Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 34,
               "Title": "20260307123847_EmailMigration.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Migrations\\20260307123847_EmailMigration.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Migrations\\20260307123847_EmailMigration.cs",
@@ -308,19 +638,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAYwDcAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-06T13:53:06.278Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 35,
               "Title": "CarService.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.Application\\Services\\CarService.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.Application\\Services\\CarService.cs",
@@ -331,7 +649,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 36,
               "Title": "StartupHelper.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\DependencyInjection\\StartupHelper.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\DependencyInjection\\StartupHelper.cs",
@@ -342,7 +660,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 37,
               "Title": "CarsRepository.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Repositories\\CarsRepository.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Repositories\\CarsRepository.cs",
@@ -353,19 +671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "CarsController.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\CarsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CarsController.cs",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Controllers\\CarsController.cs",
-              "RelativeToolTip": "Controllers\\CarsController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwCwAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-05T11:49:14.52Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 38,
               "Title": "Car.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Entities\\Car.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Entities\\Car.cs",
@@ -376,7 +682,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 39,
               "Title": "StartupHelper.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.Application\\DependencyInjection\\StartupHelper.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.Application\\DependencyInjection\\StartupHelper.cs",
@@ -387,31 +693,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "JwtService.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Services\\JwtService.cs",
-              "RelativeDocumentMoniker": "Services\\JwtService.cs",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Services\\JwtService.cs",
-              "RelativeToolTip": "Services\\JwtService.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAD4vxYAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-06T13:49:15.024Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "LoginRequest.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Models\\LoginRequest.cs",
-              "RelativeDocumentMoniker": "Models\\LoginRequest.cs",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Models\\LoginRequest.cs",
-              "RelativeToolTip": "Models\\LoginRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-06T13:52:23.276Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 40,
               "Title": "20260306082826_AddUserIdToCars.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Migrations\\20260306082826_AddUserIdToCars.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Migrations\\20260306082826_AddUserIdToCars.cs",
@@ -422,19 +704,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-03T10:25:45.763Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 41,
               "Title": "ICarsRepository.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Interfaces\\ICarsRepository.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Interfaces\\ICarsRepository.cs",
@@ -445,7 +715,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 42,
               "Title": "ICarService.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.Application\\Interfaces\\ICarService.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.Application\\Interfaces\\ICarService.cs",
@@ -456,7 +726,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 43,
               "Title": "task1.DataLayer.csproj",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\task1.DataLayer.csproj",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\task1.DataLayer.csproj",
@@ -467,7 +737,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 44,
               "Title": "DotNetTrainingCoreContext.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\DbContexts\\DotNetTrainingCoreContext.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\DbContexts\\DotNetTrainingCoreContext.cs",
@@ -478,7 +748,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 45,
               "Title": "20260305083633_SecondMigration.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Migrations\\20260305083633_SecondMigration.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Migrations\\20260305083633_SecondMigration.cs",
@@ -489,7 +759,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 46,
               "Title": "task1.Application.csproj",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.Application\\task1.Application.csproj",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.Application\\task1.Application.csproj",
@@ -500,7 +770,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 48,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\appsettings.Development.json",
               "RelativeDocumentMoniker": "appsettings.Development.json",
@@ -512,7 +782,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 49,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\dashboard\\backend1\\task1\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
@@ -524,7 +794,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 47,
               "Title": "20260304124855_InitialMigration.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO.CC\\source\\repos\\task1.DataLayer\\Migrations\\20260304124855_InitialMigration.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\task1.DataLayer\\Migrations\\20260304124855_InitialMigration.cs",

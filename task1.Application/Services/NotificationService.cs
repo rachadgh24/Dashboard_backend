@@ -16,7 +16,7 @@ namespace task1.Application.Services
             _realtime = realtime;
         }
 
-        public async Task RecordAsync(string message)
+        public async Task RecordAsync(string message, Guid tenantId)
         {
             if (string.IsNullOrWhiteSpace(message))
             {
@@ -26,7 +26,8 @@ namespace task1.Application.Services
             var notification = new Notification
             {
                 Message = message.Trim(),
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                TenantId = tenantId
             };
 
             await _notificationRepository.AddAsync(notification);
@@ -34,9 +35,9 @@ namespace task1.Application.Services
             await _realtime.NotifyCreatedAsync(notification.Id, notification.Message, notification.CreatedAt);
         }
 
-        public async Task<List<NotificationModel>> GetAllAsync()
+        public async Task<List<NotificationModel>> GetAllAsync(Guid tenantId)
         {
-            var notifications = await _notificationRepository.GetAllAsync();
+            var notifications = await _notificationRepository.GetAllAsync(tenantId);
             return notifications
                 .Select(n => new NotificationModel
                 {
@@ -47,9 +48,9 @@ namespace task1.Application.Services
                 .ToList();
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(Guid tenantId, int id)
         {
-            var deleted = await _notificationRepository.DeleteAsync(id);
+            var deleted = await _notificationRepository.DeleteAsync(tenantId, id);
             if (!deleted) return false;
 
             await _notificationRepository.SaveChangesAsync();
@@ -57,9 +58,9 @@ namespace task1.Application.Services
             return true;
         }
 
-        public async Task<int> ClearAsync()
+        public async Task<int> ClearAsync(Guid tenantId)
         {
-            var count = await _notificationRepository.DeleteAllAsync();
+            var count = await _notificationRepository.DeleteAllAsync(tenantId);
             if (count > 0)
             {
                 await _notificationRepository.SaveChangesAsync();
