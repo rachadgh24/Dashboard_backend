@@ -1,0 +1,53 @@
+name: Backend CI
+
+on:
+  pull_request:
+    paths:
+      - 'task1/**'
+      - 'task1.Application/**'
+      - 'task1.DataLayer/**'
+      - 'task1.DataLayer.Tests/**'
+      - '.github/workflows/ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'task1/**'
+      - 'task1.Application/**'
+      - 'task1.DataLayer/**'
+      - 'task1.DataLayer.Tests/**'
+      - '.github/workflows/ci.yml'
+
+concurrency:
+  group: backend-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore task1/task1.csproj
+
+      - name: Build
+        run: dotnet build task1/task1.csproj --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test task1.DataLayer.Tests/task1.DataLayer.Tests.csproj --configuration Release
+
+      - name: Install EF tool
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Add dotnet tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Validate EF migrations compile
+        run: dotnet ef migrations list --project task1.DataLayer/task1.DataLayer.csproj --startup-project task1/task1.csproj
