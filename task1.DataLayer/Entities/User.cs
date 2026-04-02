@@ -11,7 +11,9 @@ namespace task1.DataLayer.Entities
         public string PasswordHash { get; set; } = string.Empty;
         public int RoleId { get; set; }
         public Role Role { get; set; } = null!;
-          public Guid TenantId { get; set; }       
-    public Tenant Tenant { get; set; } = null!;
+        public Guid TenantId { get; set; }
+        public Tenant Tenant { get; set; } = null!;
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
     }
 }

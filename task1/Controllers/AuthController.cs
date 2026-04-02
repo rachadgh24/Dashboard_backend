@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using task1.Application.Interfaces;
 using task1.Models;
+using Microsoft.AspNetCore.RateLimiting;
+
 // testest
 namespace task1.Controllers
 {
@@ -36,7 +38,7 @@ namespace task1.Controllers
                 .ToList();
             return Ok(new ApiResponse<MePermissionsResponse> { Data = new MePermissionsResponse { Claims = claims } });
         }
-
+[EnableRateLimiting("auth-login-register")]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
@@ -51,7 +53,7 @@ namespace task1.Controllers
 
             return Unauthorized(new ApiResponse<object> { Error = new ApiError { Code = "UNAUTHORIZED", Message = "Invalid phone number or password." } });
         }
-
+        [EnableRateLimiting("auth-login-register")]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {

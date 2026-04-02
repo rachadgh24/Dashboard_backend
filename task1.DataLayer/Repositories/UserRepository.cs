@@ -87,7 +87,8 @@ namespace task1.DataLayer.Repositories
             var entity = await _context.Users.FirstOrDefaultAsync(u => u.TenantId == tenantId && u.Id == id);
             if (entity == null) return false;
 
-            _context.Users.Remove(entity);
+            entity.IsDeleted = true;
+            entity.DeletedAt = DateTime.UtcNow;
             return true;
         }
 

@@ -151,6 +151,36 @@ public class CarsRepositoryTests
     }
 
     [Fact]
+    public async Task DeleteCar_SetsIsDeletedTrue_RowRemainsAndHiddenFromDefaultQuery()
+    {
+        // Why: soft delete must flip flags while keeping the row; global filters must exclude it from normal reads.
+        var options = new DbContextOptionsBuilder<DotNetTrainingCoreContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        using (var context = new DotNetTrainingCoreContext(options))
+        {
+            context.Cars.Add(new Car { Id = 1, Model = "Toyota", maxSpeed = 180, TenantId = TenantId });
+            await context.SaveChangesAsync();
+        }
+
+        using (var context = new DotNetTrainingCoreContext(options))
+        {
+            var repo = new CarsRepository(context);
+            Assert.True(await repo.DeleteCar(TenantId, 1));
+            await repo.SaveChangesAsync();
+        }
+
+        using (var context = new DotNetTrainingCoreContext(options))
+        {
+            var raw = await context.Cars.IgnoreQueryFilters().SingleAsync(c => c.Id == 1);
+            Assert.True(raw.IsDeleted);
+            Assert.NotNull(raw.DeletedAt);
+            Assert.False(await context.Cars.AnyAsync(c => c.Id == 1));
+        }
+    }
+
+    [Fact]
     public async Task PaginateCars_ReturnsPageOfFour()
     {
         var options = new DbContextOptionsBuilder<DotNetTrainingCoreContext>()

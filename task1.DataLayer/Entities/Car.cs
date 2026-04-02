@@ -12,10 +12,11 @@ namespace task1.DataLayer.Entities
         public string Model { get; set; } = string.Empty;
         public int maxSpeed { get; set; }
 
-
         public int? CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
-    public Guid TenantId { get; set; }       
-    public Tenant Tenant { get; set; } = null!;
+        public virtual Customer Customer { get; set; } = null!;
+        public Guid TenantId { get; set; }
+        public Tenant Tenant { get; set; } = null!;
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
     }
 }

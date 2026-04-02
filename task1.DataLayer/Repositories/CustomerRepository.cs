@@ -52,9 +52,20 @@ namespace task1.DataLayer.Repositories
             var entity = await _context.Customers.FirstOrDefaultAsync(c => c.TenantId == tenantId && c.Id == id);
             if (entity == null) return false;
 
-            var relatedCars = _context.Cars.Where(c => c.TenantId == tenantId && c.CustomerId == id);
-            _context.Cars.RemoveRange(relatedCars);
-            _context.Customers.Remove(entity);
+            var deletedAt = DateTime.UtcNow;
+
+            var relatedCars = await _context.Cars
+                .Where(c => c.TenantId == tenantId && c.CustomerId == id)
+                .ToListAsync();
+
+            foreach (var car in relatedCars)
+            {
+                car.IsDeleted = true;
+                car.DeletedAt = deletedAt;
+            }
+
+            entity.IsDeleted = true;
+            entity.DeletedAt = deletedAt;
             return true;
         }
 

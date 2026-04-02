@@ -42,6 +42,19 @@ public DbSet<Tenant> Tenants { get; set; }
                 .HasOne(u => u.Role)
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId);
+
+            modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+            modelBuilder.Entity<Customer>().HasQueryFilter(c => !c.IsDeleted);
+            modelBuilder.Entity<Car>().HasQueryFilter(c => !c.IsDeleted);
+            modelBuilder.Entity<Notification>().HasQueryFilter(n => !n.IsDeleted);
+
+            modelBuilder.Entity<User>().HasIndex(u => new { u.TenantId, u.IsDeleted });
+            modelBuilder.Entity<Customer>().HasIndex(c => new { c.TenantId, c.IsDeleted });
+            modelBuilder.Entity<Car>().HasIndex(c => new { c.TenantId, c.IsDeleted });
+            modelBuilder.Entity<Notification>().HasIndex(n => new { n.TenantId, n.IsDeleted });
+
+            modelBuilder.Entity<User>().HasIndex(u => new { u.TenantId, u.PhoneNumber });
+            modelBuilder.Entity<Customer>().HasIndex(c => new { c.TenantId, c.Email });
         }
     }
 }

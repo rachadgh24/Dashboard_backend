@@ -35,7 +35,8 @@ namespace task1.DataLayer.Repositories
             var entity = await _context.Notifications.FirstOrDefaultAsync(n => n.TenantId == tenantId && n.Id == id);
             if (entity == null) return false;
 
-            _context.Notifications.Remove(entity);
+            entity.IsDeleted = true;
+            entity.DeletedAt = DateTime.UtcNow;
             return true;
         }
 
@@ -44,7 +45,12 @@ namespace task1.DataLayer.Repositories
             var all = await _context.Notifications.Where(n => n.TenantId == tenantId).ToListAsync();
             if (all.Count == 0) return 0;
 
-            _context.Notifications.RemoveRange(all);
+            var deletedAt = DateTime.UtcNow;
+            foreach (var notification in all)
+            {
+                notification.IsDeleted = true;
+                notification.DeletedAt = deletedAt;
+            }
             return all.Count;
         }
 

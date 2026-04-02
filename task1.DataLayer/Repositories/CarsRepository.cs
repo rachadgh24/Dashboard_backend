@@ -45,7 +45,8 @@ namespace task1.DataLayer.Repositories{
         {
             var entity = await _context.Cars.FirstOrDefaultAsync(c => c.TenantId == tenantId && c.Id == id);
             if (entity == null) return false;
-            _context.Cars.Remove(entity);
+            entity.IsDeleted = true;
+            entity.DeletedAt = DateTime.UtcNow;
             return true;
         }
         public async Task<List<Car>> PaginateCars(Guid tenantId, int page, int pageSize)

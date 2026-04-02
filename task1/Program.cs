@@ -10,7 +10,8 @@ using System.Text;
 using task1;
 using task1.Authorization;
 using task1.Hubs;
-
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 var builder = WebApplication.CreateBuilder(args);
 
 // ===== Add Services =====
@@ -138,6 +139,19 @@ builder.Services.AddAuthorization(options =>
             policy.Requirements.Add(new PermissionRequirement(permission)));
     }
 });
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("auth-login-register", context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,                 
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+});
 var app = builder.Build();
 
 
@@ -152,6 +166,8 @@ app.UseRouting();
 app.UseCors("NextPolicy");
 
 app.UseAuthentication();
+app.UseRateLimiter();
+
 app.UseAuthorization();
 
 app.MapControllers();
